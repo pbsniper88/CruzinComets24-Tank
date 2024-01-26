@@ -38,7 +38,6 @@ public final class Constants {
   public static final double  kI = 0;
   public static final double  kD =0;
   public static boolean isDriving = false; 
-  public static final double  scalarSwerve=0.08;
   
   // public static final int frontLeftPosition = 159/1000*360;
   // public static final int frontRightPosition = -42/1000 *360;
