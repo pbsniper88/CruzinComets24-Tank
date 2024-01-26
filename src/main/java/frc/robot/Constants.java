@@ -28,16 +28,10 @@ public final class Constants {
   }
   public static final double deadZone = 0.1;
   public static final double maxSpeed = 1.0;
-  public static final int kPIDLoopIdx = 0;
-	public static final int kTimeoutMs = 30;
 
   public static final int clawPort = 1; // ;) set later
   public static final int elevatorPort = 2; // ;) set later
   public static final int armPort = 0; // ;) set later
-  public static final double kP = 0.005555;
-  public static final double  kI = 0;
-  public static final double  kD =0;
-  public static boolean isDriving = false; 
   
   // public static final int frontLeftPosition = 159/1000*360;
   // public static final int frontRightPosition = -42/1000 *360;
