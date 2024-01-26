@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.event.EventLoop;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final int COLLISION_THRESHOLD = 10;
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
 
@@ -28,23 +27,21 @@ public final class Constants {
   }
   public static final double deadZone = 0.1;
   public static final double maxSpeed = 1.0;
-  public static final int kPIDLoopIdx = 0;
-	public static final int kTimeoutMs = 30;
+  public static final int driverController = 0;
+  public static final int auxController = 1;
 
-  public static final int clawPort = 1; // ;) set later
-  public static final int elevatorPort = 2; // ;) set later
-  public static final int armPort = 0; // ;) set later
-  public static final double kP = 0.005555;
-  public static final double  kI = 0;
-  public static final double  kD =0;
-  public static boolean isDriving = false; 
-  public static final double  scalarSwerve=0.08;
-  
-  // public static final int frontLeftPosition = 159/1000*360;
-  // public static final int frontRightPosition = -42/1000 *360;
-  // public static final int backLeftPosition = 12/1000 *360;
-  // public static final int backRightPosition = -70/1000 *360;
+  public static final int leftMotor = 9;
+  public static final int rightMotor = 8;
+  public static final int shooterMotor = 0;
 
-  public static XboxController driverController = new XboxController(0);
-  public static XboxController auxController = new XboxController(1);
+  public static final double inversion = -1.0;
+  // This may need to be scaled.
+  public static final double maxShootSpeed = 1.0;
+
+  // Autonomous values
+  public static final double AutoTurnRate = 0.4;
+  public static final double AutoStallRate = 0.0;
+  public static final double AutoDriveRate = 0.5;
+  public static final double AutoReverseRate = -0.2;
+
 }

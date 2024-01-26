@@ -10,6 +10,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -21,10 +22,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.TelemetryPublisher;
 
 import frc.robot.commands.TelemetryPublisher;
-import frc.robot.commands.Drive;
 import frc.robot.subsystems.Wheel;
 import frc.robot.subsystems.TankDrive;
 import frc.robot.subsystems.GyroSubsystem;
+import frc.robot.commands.Autonomous.AutonomousScheduler;
+import frc.robot.commands.Autonomous.DriveForwardAction;
+import frc.robot.commands.Autonomous.TurnAction;
+import frc.robot.commands.Autonomous.DriveReverseAction;
 // import frc.robot.subsystems.Accel;
 
 
@@ -37,17 +41,16 @@ import frc.robot.subsystems.GyroSubsystem;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private TelemetryPublisher telemetryPublisher;
+  private AutonomousScheduler autoScheduler;
   public AnalogInput ultrasonicSensor = new AnalogInput(0);
-  private static Wheel backRight = new Wheel (6);
-  private static Wheel backLeft = new Wheel (8);
-  private static Wheel frontRight = new Wheel (7);
-  private static Wheel frontLeft = new Wheel (9);
-  private static XboxController controllerOne = new XboxController(0);
+  private static Wheel rightSide = new Wheel (Constants.rightMotor);
+  private static Wheel leftSide = new Wheel (Constants.leftMotor);
+  private static XboxController controllerOne = new XboxController(Constants.driverController);
   private PowerDistribution m_PD = new PowerDistribution();
   private static int counter = 0;
   private int autonStyle;
   public boolean slowMode = false;
-  public static TankDrive m_tankdrive = new TankDrive (backRight, backLeft, frontRight, frontLeft);
+  public static TankDrive m_tankdrive = new TankDrive (rightSide, leftSide);
   // public static AccelerometerSubsystem accel = new AccelerometerSubsystem();
   private RobotContainer m_robotContainer;
   public double ultrasonicSensorRange = 0;
@@ -62,7 +65,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Robot Vision to See
-    // CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture();
     
 
 
@@ -72,6 +75,7 @@ public class Robot extends TimedRobot {
     
     m_robotContainer = new RobotContainer();
     telemetryPublisher = new TelemetryPublisher();
+    autoScheduler = new AutonomousScheduler();
     telemetryPublisher.publishTelemetry("Auton Style", 0);
     telemetryPublisher.publishTelemetry("Ultra Sensor Range", 500);
   }
@@ -106,23 +110,30 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    // new SequentialCommandGroup(new AutonMove(1.9, -0.6,0 ), new WaitCommand(1)).schedule();
     autonStyle = (int) SmartDashboard.getNumber("Auton Style", 0);
 
-  
-
-
-    // // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (autonStyle == 1){
+    // Drive forward for 3 seconds
+    autoScheduler.addAction(new DriveForwardAction(3, m_tankdrive));
+    // Turn left for 1.5 seconds
+    autoScheduler.addAction(new TurnAction(1.5, false, m_tankdrive));
+    autoScheduler.init();
     }
+
+    else if (autonStyle == 2){
+      m_tankdrive.autonDrive(-0.1, -0.1);
+      Timer.delay(5);
+      m_tankdrive.autonDrive(0, 0);
+    }
+
+
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-
-
+    autoScheduler.run();
+    
   }
 
   @Override
@@ -141,6 +152,7 @@ public class Robot extends TimedRobot {
     ultrasonicSensorRange = ultrasonicSensor.getValue()*voltageScaleFactor*0.125;
     double leftY = controllerOne.getLeftY();
     double rightY = controllerOne.getRightY();
+    m_tankdrive.drive(leftY, rightY);
   }
 
   @Override

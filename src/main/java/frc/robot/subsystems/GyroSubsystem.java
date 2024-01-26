@@ -7,13 +7,16 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.TelemetryPublisher;
 
 public class GyroSubsystem extends SubsystemBase {
     int count = 0;
     ADXRS450_Gyro gyro;
+    TelemetryPublisher telemetryPublisher;
   /** Creates a new ExampleSubsystem. */
   public GyroSubsystem() {
     gyro = new ADXRS450_Gyro();
+    telemetryPublisher = new TelemetryPublisher();
     
   }
 
@@ -27,12 +30,7 @@ public class GyroSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (count >= 100){
-        System.out.println(gyro.getAngle());
-        count = 0;
-    }
-    count++;
-
+    // telemetryPublisher.publishGyroTelemetry("Angle", gyro.getAngle());
     // This method will be called once per scheduler run
   }
 
@@ -41,7 +39,5 @@ public class GyroSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public double curAngle(){
-    return gyro.getAngle();
-  }
+
 }

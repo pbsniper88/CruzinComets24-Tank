@@ -41,32 +41,6 @@ public class RobotContainer {
   
   private void configureBindings() {
 
-    
-
-    // JoystickButton openClaw = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
-    // openClaw.whileTrue(new MoveClaw(m_Claw, 1));
-    // openClaw.onFalse(new MoveClaw(m_Claw, 0));
-
-    // JoystickButton closeClaw= new JoystickButton(Constants.auxController, Button.kLeftBumper.value);
-    // closeClaw.whileTrue(new MoveClaw(m_Claw, 2));
-    // closeClaw.onFalse(new MoveClaw(m_Claw, 0));
-
-    // JoystickButton buttonElevatorDown = new JoystickButton(Constants.auxController, Button.kX.value);
-    // buttonElevatorDown.whileTrue(new ElevatorCommand(m_Elevator, 1));
-    // buttonElevatorDown.onFalse(new ElevatorCommand(m_Elevator, 0));
-
-    // JoystickButton buttonElevatorUp = new JoystickButton(Constants.auxController, Button.kY.value);
-    // buttonElevatorUp.whileTrue(new ElevatorCommand(m_Elevator, 2));
-    // buttonElevatorUp.onFalse(new ElevatorCommand(m_Elevator, 0));
-
-    // JoystickButton buttonArmDown = new JoystickButton(Constants.auxController, Button.kA.value);
-    // buttonArmDown.whileTrue(new ArmCommand(m_Arm, 1));
-    // buttonArmDown.onFalse(new ArmCommand(m_Arm, 0));
-
-    // JoystickButton buttonArmUp = new JoystickButton(Constants.auxController, Button.kB.value);
-    // buttonArmUp.whileTrue(new ArmCommand(m_Arm, 2));
-    // buttonArmUp.onFalse(new ArmCommand(m_Arm, 0));
-
   }
 
   /**
