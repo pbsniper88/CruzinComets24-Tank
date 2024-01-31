@@ -1,0 +1,47 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+package frc.robot;
+
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.event.EventLoop;
+
+/**
+ * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants should be declared
+ * globally (i.e. public static). Do not put anything functional in this class.
+ *
+ * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * constants are needed, to reduce verbosity.
+ */
+public final class Constants {
+  public static class OperatorConstants {
+    public static final int kDriverControllerPort = 0;
+
+    // Assuming the lenth and width of the wheel spacings are even, these can be equal
+    // and can be made a constant so its not calculated on each method call. -Shane
+    static double L = 1.0;
+    static double W = 1.0;
+    public static final double drive_r = Math.sqrt ((L * L) + (W * W));
+  }
+  public static final double deadZone = 0.1;
+  public static final double maxSpeed = 1.0;
+  public static final int driverController = 0;
+  public static final int auxController = 1;
+
+  public static final int leftMotor = 9;
+  public static final int rightMotor = 8;
+  public static final int shooterMotor = 0;
+
+  public static final double inversion = -1.0;
+  // This may need to be scaled.
+  public static final double maxShootSpeed = 1.0;
+
+  // Autonomous values
+  public static final double AutoTurnRate = 0.4;
+  public static final double AutoStallRate = 0.0;
+  public static final double AutoDriveRate = 0.5;
+  public static final double AutoReverseRate = -0.5;
+
+}
