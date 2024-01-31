@@ -49,7 +49,10 @@ public class Robot extends TimedRobot {
   private PowerDistribution m_PD = new PowerDistribution();
   private static int counter = 0;
   private int autonStyle;
+<<<<<<< HEAD
   private double secondsRunning;
+=======
+>>>>>>> 019b76c22db4a65b516910f9093d53490c8c9772
   public boolean slowMode = false;
   public static TankDrive m_tankdrive = new TankDrive (rightSide, leftSide);
   // public static AccelerometerSubsystem accel = new AccelerometerSubsystem();
@@ -112,6 +115,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+<<<<<<< HEAD
 
     autonStyle = (int) SmartDashboard.getNumber("Auton Style", 0);
     secondsRunning = (double) SmartDashboard.getNumber("Seconds Running", 0);
