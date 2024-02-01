@@ -16,20 +16,22 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.TelemetryPublisher;
-
 import frc.robot.commands.TelemetryPublisher;
 import frc.robot.subsystems.Wheel;
 import frc.robot.subsystems.TankDrive;
-import frc.robot.subsystems.GyroSubsystem;
+import frc.robot.subsystems.Shooter;
 import frc.robot.commands.Autonomous.AutonomousScheduler;
 import frc.robot.commands.Autonomous.DriveForwardAction;
 import frc.robot.commands.Autonomous.TurnAction;
 import frc.robot.commands.Autonomous.DriveReverseAction;
-// import frc.robot.subsystems.Accel;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.XboxController.Button;
 
 
 /**
@@ -45,14 +47,12 @@ public class Robot extends TimedRobot {
   public AnalogInput ultrasonicSensor = new AnalogInput(0);
   private static Wheel rightSide = new Wheel (Constants.rightMotor);
   private static Wheel leftSide = new Wheel (Constants.leftMotor);
+  private static Shooter shooter = new Shooter(Constants.shooterPort);
   private static XboxController controllerOne = new XboxController(Constants.driverController);
   private PowerDistribution m_PD = new PowerDistribution();
   private static int counter = 0;
   private int autonStyle;
-<<<<<<< HEAD
   private double secondsRunning;
-=======
->>>>>>> 019b76c22db4a65b516910f9093d53490c8c9772
   public boolean slowMode = false;
   public static TankDrive m_tankdrive = new TankDrive (rightSide, leftSide);
   // public static AccelerometerSubsystem accel = new AccelerometerSubsystem();
@@ -70,6 +70,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Robot Vision to See
     CameraServer.startAutomaticCapture();
+    configAuxBindings();
     
 
 
@@ -107,7 +108,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    shooter.stopMotor();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -115,7 +118,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-<<<<<<< HEAD
+
 
     autonStyle = (int) SmartDashboard.getNumber("Auton Style", 0);
     secondsRunning = (double) SmartDashboard.getNumber("Seconds Running", 0);
@@ -195,5 +198,15 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic() {
     
+  }
+
+  public void configAuxBindings(){
+    JoystickButton shootSpeaker = new JoystickButton(Constants.auxController, Button.kX.value);
+    shootSpeaker.onTrue(new Shoot(shooter, Constants.speakerShot));
+
+    JoystickButton shootAmp = new JoystickButton(Constants.auxController, Button.kY.value);
+    shootAmp.onTrue(new Shoot(shooter, Constants.ampShot));
+
+    System.out.println("hi");
   }
 }

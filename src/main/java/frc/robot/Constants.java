@@ -28,15 +28,21 @@ public final class Constants {
   public static final double deadZone = 0.1;
   public static final double maxSpeed = 1.0;
   public static final int driverController = 0;
-  public static final int auxController = 1;
+  public static final int auxControllerPort = 1;
+  public static XboxController auxController = new XboxController(Constants.auxControllerPort);
 
+  public static final int shooterPort = 1;
   public static final int leftMotor = 9;
   public static final int rightMotor = 8;
-  public static final int shooterMotor = 0;
-
   public static final double inversion = -1.0;
   // This may need to be scaled.
   public static final double maxShootSpeed = 1.0;
+
+  public static final int speakerShot = 1;
+  public static final int ampShot = 2;
+  public static final double speakerShotSpeed = 0.5;
+  public static final double ampShotSpeed = 0.2;
+  public static final int spinShooterTimeMs = 5000;
 
   // Autonomous values
   public static final double AutoTurnRate = 0.4;
