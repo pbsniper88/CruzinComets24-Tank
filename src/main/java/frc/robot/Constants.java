@@ -43,6 +43,7 @@ public final class Constants {
   public static final double speakerShotSpeed = 0.5;
   public static final double ampShotSpeed = 0.2;
   public static final int spinShooterTimeMs = 5000;
+  public static final int reverse = -1;
 
   // Autonomous values
   public static final double AutoTurnRate = 0.4;
