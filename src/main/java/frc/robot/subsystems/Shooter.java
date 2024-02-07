@@ -12,14 +12,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
-private CANSparkMax shooterMotor;
+private PWMTalonSRX shooterMotor;
   /** Creates a new ExampleSubsystem. */
   public Shooter(int shooterPort) {
-    shooterMotor = new CANSparkMax(shooterPort, MotorType.kBrushless);
+    shooterMotor = new PWMTalonSRX(shooterPort);
   }
 
   public void setSpeed(double speed){
-    shooterMotor.set(speed);
+    //Multiple by -1 to reverse direction
+    shooterMotor.set(speed * -1);
   }
 
   public void stopMotor(){

@@ -206,7 +206,5 @@ public class Robot extends TimedRobot {
 
     JoystickButton shootAmp = new JoystickButton(Constants.auxController, Button.kY.value);
     shootAmp.onTrue(new Shoot(shooter, Constants.ampShot));
-
-    System.out.println("hi");
   }
 }
