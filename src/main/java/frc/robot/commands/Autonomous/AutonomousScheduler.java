@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class AutonomousScheduler {
+    //When we add an action into our actionQueue, all previous actions must be completed before we can run the current action
     private Queue<Action> actionQueue = new LinkedList<>();
 
     public void addAction(Action action) {

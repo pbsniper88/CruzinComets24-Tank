@@ -6,18 +6,17 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shooter;
 
-/** An example command that uses an example subsystem. */
+//Shoot command that uses the Shooter subsystem
 public class Shoot extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  //Variable to hold our Shooter subsystem
   private final Shooter m_shooter;
+  //Is either 1 or 2, determines if we want to shoot powerful or weak
   public int shotType;
+  //Keeps track of when this command started
   public long startTime;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+  //This command is constructed within Robot class, found in configAuxBindings() method
   public Shoot(Shooter subsystem, int shotType) {
     m_shooter = subsystem;
     this.shotType = shotType;
@@ -30,6 +29,7 @@ public class Shoot extends Command {
   public void initialize() {
     startTime = System.currentTimeMillis();
     if (shotType == Constants.speakerShot){
+      //This sets the shooter motors to the specific speed we want
       m_shooter.setSpeed(Constants.speakerShotSpeed);
     }
 
@@ -47,10 +47,11 @@ public class Shoot extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    //Stop the shooter motors
     m_shooter.setSpeed(0);
   }
 
-  // Returns true when the command should end.
+  // Returns true to call end()
   @Override
   public boolean isFinished() {
     return (System.currentTimeMillis() - startTime) >= Constants.spinShooterTimeMs;
