@@ -55,6 +55,7 @@ public final class Constants {
   public static final double ampShotSpeed = 0.2;
   //This determines how long we want to spin the shooter motors when calling Shoot command
   public static final int spinShooterTimeMs = 5000;
+  public static final int reverse = -1;
 
   //Flipper related constants
   public static final double flipperFlipSpeed = 0.5;
