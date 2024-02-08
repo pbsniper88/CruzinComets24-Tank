@@ -20,12 +20,15 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.Flip;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.TelemetryPublisher;
 import frc.robot.commands.TelemetryPublisher;
 import frc.robot.subsystems.Wheel;
 import frc.robot.subsystems.TankDrive;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Flipper;
+import frc.robot.subsystems.Sucker;
 import frc.robot.commands.Autonomous.AutonomousScheduler;
 import frc.robot.commands.Autonomous.DriveForwardAction;
 import frc.robot.commands.Autonomous.TurnAction;
@@ -48,6 +51,8 @@ public class Robot extends TimedRobot {
   private static Wheel rightSide = new Wheel (Constants.rightMotor);
   private static Wheel leftSide = new Wheel (Constants.leftMotor);
   private static Shooter shooter = new Shooter(Constants.shooterPort);
+  private static Flipper flipper = new Flipper(Constants.flipperPort);
+  private static Sucker sucker = new Sucker(Constants.suckerPort);
   private static XboxController controllerOne = new XboxController(Constants.driverController);
   private PowerDistribution m_PD = new PowerDistribution();
   private static int counter = 0;
@@ -201,10 +206,17 @@ public class Robot extends TimedRobot {
   }
 
   public void configAuxBindings(){
-    JoystickButton shootSpeaker = new JoystickButton(Constants.auxController, Button.kX.value);
-    shootSpeaker.onTrue(new Shoot(shooter, Constants.speakerShot));
+    JoystickButton shootSpeakerButton = new JoystickButton(Constants.auxController, Button.kX.value);
+    shootSpeakerButton.onTrue(new Shoot(shooter, Constants.speakerShot));
 
-    JoystickButton shootAmp = new JoystickButton(Constants.auxController, Button.kY.value);
-    shootAmp.onTrue(new Shoot(shooter, Constants.ampShot));
+    JoystickButton shootAmpButton = new JoystickButton(Constants.auxController, Button.kY.value);
+    shootAmpButton.onTrue(new Shoot(shooter, Constants.ampShot));
+
+    JoystickButton flipRingButton = new JoystickButton(Constants.auxController, Button.kA.value);
+    flipRingButton.onTrue(new Flip(flipper));
+
+    JoystickButton suckButton = new JoystickButton(Constants.auxController, Button.kB.value);
+    
+
   }
 }

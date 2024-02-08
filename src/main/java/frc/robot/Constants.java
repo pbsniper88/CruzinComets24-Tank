@@ -59,6 +59,9 @@ public final class Constants {
 
   //Flipper related constants
   public static final double flipperFlipSpeed = 0.5;
+
+  //Sucker related constants
+  public static final double suckerSuckSpeed = 0.5;
   
 
   // Autonomous values

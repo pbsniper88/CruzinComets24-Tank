@@ -15,7 +15,11 @@ public class Sucker extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    suckerMotor.
+    suckerMotor.set(speed);
+  }
+
+  public void stopMotor(){
+    suckerMotor.set(0);
   }
 
   @Override

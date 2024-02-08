@@ -36,16 +36,16 @@ public class TankDrive extends SubsystemBase {
   }
 
   public void autonDrive(double leftY, double rightY) {
-    leftSide.setMotorVelocity(leftJoystickY);
+    leftSide.setMotorVelocity(leftY);
     /* 
     Someone screwed up the wiring, so the right joystick has to be reversed.
     If a future team wired the robot correctly, remove Constants.reverse.
     */
-    rightSide.setMotorVelocity(rightJoystickY * Constants.reverse);
+    rightSide.setMotorVelocity(rightY * Constants.reverse);
 
     // Displays the autonomous speeds to the smart dashboard for debugging.
-    SmartDashboard.putNumber("autonL", leftJoystickY);
-    SmartDashboard.putNumber("autonR", rightJoystickY);
+    SmartDashboard.putNumber("autonL", leftY);
+    SmartDashboard.putNumber("autonR", rightY);
   }
 
   public void drive(double leftJoystickY, double rightJoystickY) {
