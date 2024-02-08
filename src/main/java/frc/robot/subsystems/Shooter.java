@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -11,18 +10,25 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.Constants;
+
 public class Shooter extends SubsystemBase {
 private PWMTalonSRX shooterMotor;
-  /** Creates a new ExampleSubsystem. */
+  // Contructs a shooter to control.
   public Shooter(int shooterPort) {
     shooterMotor = new PWMTalonSRX(shooterPort);
   }
 
+  /* 
+  The shooter spins the wrong way when positive. 
+  Constants.reverse is -1 to reverse the direction of spin
+  */
   public void setSpeed(double speed){
     //Multiple by -1 to reverse direction
-    shooterMotor.set(speed * -1);
+    shooterMotor.set(speed * Constants.reverse);
   }
-
+  
+  // Stops both motors for the shooter
   public void stopMotor(){
     shooterMotor.set(0);
   }
