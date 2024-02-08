@@ -27,22 +27,38 @@ public final class Constants {
   }
   public static final double deadZone = 0.1;
   public static final double maxSpeed = 1.0;
+  //Within FRC Driver Station, go to USB Devices on the left, these variables follow the USB order
+  //Click rescan devices when you plug in a new controller
   public static final int driverController = 0;
   public static final int auxControllerPort = 1;
+
+  //You can put auxController in Constants if you want
   public static XboxController auxController = new XboxController(Constants.auxControllerPort);
 
+  //These are the cables connected to the PWN Section on the RoboRio, labled 0-9
   public static final int shooterPort = 1;
+  public static final int flipperPort = 2;
+  public static final int suckerPort = 3;
+
   public static final int leftMotor = 9;
   public static final int rightMotor = 8;
+
+  //Constant if we want to invert the direction of a motor
   public static final double inversion = -1.0;
   // This may need to be scaled.
   public static final double maxShootSpeed = 1.0;
 
+  //Shooter related constants
   public static final int speakerShot = 1;
   public static final int ampShot = 2;
   public static final double speakerShotSpeed = 0.5;
   public static final double ampShotSpeed = 0.2;
+  //This determines how long we want to spin the shooter motors when calling Shoot command
   public static final int spinShooterTimeMs = 5000;
+
+  //Flipper related constants
+  public static final double flipperFlipSpeed = 0.5;
+  
 
   // Autonomous values
   public static final double AutoTurnRate = 0.4;

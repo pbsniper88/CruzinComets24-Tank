@@ -4,22 +4,20 @@ package frc.robot.commands;
 import frc.robot.Constants;
 import frc.robot.subsystems.Sucker;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Shooter;
-
+import frc.robot.subsystems.Flipper;
+import edu.wpi.first.wpilibj.Timer;
 //Shoot command that uses the Shooter subsystem
-public class Shoot extends Command {
+public class Flip extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   //Variable to hold our Shooter subsystem
-  private final Shooter m_shooter;
+  private final Flipper m_flipper;
   //Is either 1 or 2, determines if we want to shoot powerful or weak
-  public int shotType;
   //Keeps track of when this command started
   public long startTime;
 
   //This command is constructed within Robot class, found in configAuxBindings() method
-  public Shoot(Shooter subsystem, int shotType) {
-    m_shooter = subsystem;
-    this.shotType = shotType;
+  public Flip(Flipper subsystem) {
+    m_flipper = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -28,14 +26,7 @@ public class Shoot extends Command {
   @Override
   public void initialize() {
     startTime = System.currentTimeMillis();
-    if (shotType == Constants.speakerShot){
-      //This sets the shooter motors to the specific speed we want
-      m_shooter.setSpeed(Constants.speakerShotSpeed);
-    }
-
-    else if (shotType == Constants.ampShot){
-      m_shooter.setSpeed(Constants.ampShotSpeed);
-    }
+    m_flipper.setSpeed(Constants.flipperFlipSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,8 +38,10 @@ public class Shoot extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_flipper.setSpeed(Constants.flipperFlipSpeed * -1);
+    Timer.delay(3);
     //Stop the shooter motors
-    m_shooter.setSpeed(0);
+    m_flipper.setSpeed(0);
   }
 
   // Returns true to call end()
