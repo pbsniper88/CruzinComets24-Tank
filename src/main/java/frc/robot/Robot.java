@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Flip;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.Suck;
 import frc.robot.commands.TelemetryPublisher;
 import frc.robot.commands.TelemetryPublisher;
 import frc.robot.subsystems.Wheel;
@@ -216,7 +217,8 @@ public class Robot extends TimedRobot {
     flipRingButton.onTrue(new Flip(flipper));
 
     JoystickButton suckButton = new JoystickButton(Constants.auxController, Button.kB.value);
-    
+    suckButton.whileTrue(new Suck(sucker, true));
+    suckButton.onFalse(new Suck(sucker, false));
 
   }
 }
