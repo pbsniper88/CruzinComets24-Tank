@@ -34,6 +34,7 @@ import frc.robot.commands.Autonomous.AutonomousScheduler;
 import frc.robot.commands.Autonomous.DriveForwardAction;
 import frc.robot.commands.Autonomous.TurnAction;
 import frc.robot.commands.Autonomous.DriveReverseAction;
+import frc.robot.commands.Autonomous.ShootAction;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController.Button;
 
@@ -143,6 +144,7 @@ public class Robot extends TimedRobot {
 
     if (autonStyle == 1){
     autoScheduler.addAction(new DriveReverseAction(secondsRunning, m_tankdrive));
+    autoScheduler.addAction(new ShootAction(3, shooter, Constants.speakerShot));
     // autoScheduler.addAction(new DriveForwardAction(secondsRunning, m_tankdrive));
     // autoScheduler.addAction(new TurnAction(secondsRunning, false, m_tankdrive));
     autoScheduler.init();
