@@ -145,6 +145,8 @@ public class Robot extends TimedRobot {
     if (autonStyle == 1){
     autoScheduler.addAction(new DriveReverseAction(secondsRunning, m_tankdrive));
     autoScheduler.addAction(new ShootAction(3, shooter, Constants.speakerShot));
+    // Distance in feet
+    autoScheduler.addAction(new SmoothDriveForwardAction(1, m_tankdrive))
     // autoScheduler.addAction(new DriveForwardAction(secondsRunning, m_tankdrive));
     // autoScheduler.addAction(new TurnAction(secondsRunning, false, m_tankdrive));
     autoScheduler.init();
