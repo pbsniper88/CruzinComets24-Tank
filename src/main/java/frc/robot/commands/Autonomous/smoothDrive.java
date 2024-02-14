@@ -11,11 +11,15 @@ public class SmoothDriveForwardAction implements Action {
     //Variable that accesses our TankDrive subsystem
     private TankDrive tankDrive;
     Encoder encoder = new Encoder(0, 1);
-    encoder.setDistancePerPulse(4.0/256.0);
+    // Configures the encoder's distance-per-pulse
+    // The robot moves forward 1 foot per encoder rotation
+    // There are 256 pulses per encoder rotation
+    encoder.setDistancePerPulse(Constants.WheelDiameter*Constants.Pi/256.0);
     encoder.setSamplesToAverage(5);
 
     
     //Constructer is called within Robot class, which contains the an instance of TankDrive
+    // Distance is in feet
     public DriveForwardAction(double distance, TankDrive tankDrive) {
         this.distance = distance;
         this.tankDrive = tankDrive;
