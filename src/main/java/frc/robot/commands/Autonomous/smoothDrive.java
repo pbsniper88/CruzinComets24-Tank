@@ -23,20 +23,20 @@ public class SmoothDriveForwardAction implements Action {
     public DriveForwardAction(double distance, TankDrive tankDrive) {
         this.distance = distance;
         this.tankDrive = tankDrive;
-        if(encoder.getDistance() < distance) {
-            tankDrive.autonDrive(Constants.AutoDriveRate, Constants.AutoDriveRate);
-        } 
-        else {
-            tankDrive.autonDrive(Constants.AutoStallRate, Constants.AutoStallRate);
-        }
+        
     }
 
     @Override
     public void start() {
-        startTime = System.currentTimeMillis();
-        // Code to start driving forward
-        //Speed for autonDrive is within Constants class
-        tankDrive.autonDrive(Constants.AutoDriveRate, Constants.AutoDriveRate);
+        if(encoder.getDistance() < distance/5) {
+            tankDrive.autonDrive(Constants.AutoDriveRate/5, Constants.AutoDriveRate/5);
+        }
+        if(encoder.getDistance() < distance/3) {
+            tankDrive.autonDrive(Constants.AutoDriveRate/3, Constants.AutoDriveRate/3);
+        } 
+        else {
+            tankDrive.autonDrive(Constants.AutoStallRate, Constants.AutoStallRate);
+        }
     }
 
     @Override
@@ -52,8 +52,6 @@ public class SmoothDriveForwardAction implements Action {
 
     @Override
     public boolean isFinished() {
-        //This determines how long the Action runs based on how long ago it started
-        //end() will be called once this returns true        
-        return (System.currentTimeMillis() - startTime) >= duration * 1000;
+        return encoder.getDistance()>=distance;
     }
 }
