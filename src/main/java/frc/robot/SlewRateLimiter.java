@@ -68,7 +68,7 @@ public class SlewRateLimiter {
    * @param input The input value whose slew rate is to be limited.
    * @return The filtered value, which will not change faster than the slew rate.
    */
-  public double calculate(double input, double completeTime) {
+  public double calculate(double input) {
     
     double currentTime = MathSharedStore.getTimestamp();
     double elapsedTime = currentTime - m_prevTime;
