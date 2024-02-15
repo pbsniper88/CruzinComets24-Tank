@@ -7,6 +7,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import frc.robot.Constants;
 import frc.robot.commands.TelemetryPublisher;
+//import frc.robot.SlewRateLimiter
 
 /*
 Tank drive is where you have two sets of wheels. 
@@ -49,10 +50,13 @@ public class TankDrive extends SubsystemBase {
   }
 
   public void drive(double leftJoystickY, double rightJoystickY) {
+    
     double leftVelocity = leftSpeedLimiter
         .calculate(MathUtil.applyDeadband(leftJoystickY, Constants.deadZone) * Constants.maxSpeed);
     double rightVelocity = rightSpeedLimiter
         .calculate(MathUtil.applyDeadband(rightJoystickY, Constants.deadZone) * Constants.maxSpeed);
+
+        
 
     leftSide.setMotorVelocity(leftVelocity * -1);
     rightSide.setMotorVelocity(rightVelocity);
