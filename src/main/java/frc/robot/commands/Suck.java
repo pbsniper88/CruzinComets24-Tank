@@ -16,7 +16,7 @@ public class Suck extends Command{
     @Override
     public void initialize() {
         if(isOn){
-            m_sucker.setSpeed(Constants.suckerSuckSpeed);
+            m_sucker.setSpeed(Constants.suckerSuckSpeed * -1);
         }
 
         else{

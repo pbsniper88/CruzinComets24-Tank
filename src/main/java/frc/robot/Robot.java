@@ -28,7 +28,7 @@ import frc.robot.commands.TelemetryPublisher;
 import frc.robot.subsystems.Wheel;
 import frc.robot.subsystems.TankDrive;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Flipper;
+// import frc.robot.subsystems.Flipper;
 import frc.robot.subsystems.Sucker;
 import frc.robot.commands.Autonomous.AutonomousScheduler;
 import frc.robot.commands.Autonomous.DriveForwardAction;
@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
   private static Wheel rightSide = new Wheel (Constants.rightMotor);
   private static Wheel leftSide = new Wheel (Constants.leftMotor);
   private static Shooter shooter = new Shooter(Constants.shooterPort);
-  private static Flipper flipper = new Flipper(Constants.flipperPort);
+  // private static Flipper flipper = new Flipper(Constants.flipperPort);
   private static Sucker sucker = new Sucker(Constants.suckerPort);
   private static XboxController controllerOne = new XboxController(Constants.driverController);
   private PowerDistribution m_PD = new PowerDistribution();
@@ -146,7 +146,6 @@ public class Robot extends TimedRobot {
     autoScheduler.addAction(new DriveReverseAction(secondsRunning, m_tankdrive));
     autoScheduler.addAction(new ShootAction(3, shooter, Constants.speakerShot));
     // Distance in feet
-    autoScheduler.addAction(new SmoothDriveForwardAction(1, m_tankdrive))
     // autoScheduler.addAction(new DriveForwardAction(secondsRunning, m_tankdrive));
     // autoScheduler.addAction(new TurnAction(secondsRunning, false, m_tankdrive));
     autoScheduler.init();
@@ -217,8 +216,8 @@ public class Robot extends TimedRobot {
     JoystickButton shootAmpButton = new JoystickButton(Constants.auxController, Button.kY.value);
     shootAmpButton.onTrue(new Shoot(shooter, Constants.ampShot));
 
-    JoystickButton flipRingButton = new JoystickButton(Constants.auxController, Button.kA.value);
-    flipRingButton.onTrue(new Flip(flipper));
+    // JoystickButton flipRingButton = new JoystickButton(Constants.auxController, Button.kA.value);
+    // flipRingButton.onTrue(new Flip(flipper));
 
     JoystickButton suckButton = new JoystickButton(Constants.auxController, Button.kB.value);
     suckButton.whileTrue(new Suck(sucker, true));

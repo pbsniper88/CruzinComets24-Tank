@@ -39,7 +39,7 @@ public class Flip extends Command {
   @Override
   public void end(boolean interrupted) {
     m_flipper.setSpeed(Constants.flipperFlipSpeed * -1);
-    Timer.delay(3);
+    Timer.delay(Constants.flipperFlipDuration);
     //Stop the shooter motors
     m_flipper.setSpeed(0);
   }
