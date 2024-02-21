@@ -39,6 +39,8 @@ public final class Constants {
   public static final int shooterPort = 1;
   public static final int flipperPort = 2;
   public static final int suckerPort = 3;
+  public static final int beltPort = 4;
+
 
   public static final int leftMotor = 9;
   public static final int rightMotor = 8;
@@ -63,6 +65,9 @@ public final class Constants {
 
   //Sucker related constants
   public static final double suckerSuckSpeed = 1;
+
+  //Belt related constants
+  public static final double beltMoveSpeed = 0.5;
   
 
   // Autonomous values

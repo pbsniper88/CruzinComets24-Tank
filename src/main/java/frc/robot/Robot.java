@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Flip;
+import frc.robot.commands.MoveBelt;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Suck;
 import frc.robot.commands.TelemetryPublisher;
@@ -28,6 +29,7 @@ import frc.robot.commands.TelemetryPublisher;
 import frc.robot.subsystems.Wheel;
 import frc.robot.subsystems.TankDrive;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Belt;
 // import frc.robot.subsystems.Flipper;
 import frc.robot.subsystems.Sucker;
 import frc.robot.commands.Autonomous.AutonomousScheduler;
@@ -55,6 +57,7 @@ public class Robot extends TimedRobot {
   private static Shooter shooter = new Shooter(Constants.shooterPort);
   // private static Flipper flipper = new Flipper(Constants.flipperPort);
   private static Sucker sucker = new Sucker(Constants.suckerPort);
+  private static Belt belt = new Belt(Constants.beltPort);
   private static XboxController controllerOne = new XboxController(Constants.driverController);
   private PowerDistribution m_PD = new PowerDistribution();
   private static int counter = 0;
@@ -222,6 +225,10 @@ public class Robot extends TimedRobot {
     JoystickButton suckButton = new JoystickButton(Constants.auxController, Button.kB.value);
     suckButton.whileTrue(new Suck(sucker, true));
     suckButton.onFalse(new Suck(sucker, false));
+
+    JoystickButton beltButton = new JoystickButton(Constants.auxController, Button.kA.value);
+    beltButton.whileTrue(new MoveBelt(belt, true));
+    beltButton.whileFalse(new MoveBelt(belt, false));
 
   }
 }
