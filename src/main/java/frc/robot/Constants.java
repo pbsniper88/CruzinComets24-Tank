@@ -36,6 +36,7 @@ public final class Constants {
   public static XboxController auxController = new XboxController(Constants.auxControllerPort);
 
   //These are the cables connected to the PWN Section on the RoboRio, labled 0-9
+  public static final int servoPort = 0;
   public static final int shooterPort = 1;
   public static final int flipperPort = 2;
   public static final int suckerPort = 3;
@@ -54,7 +55,7 @@ public final class Constants {
   public static final int speakerShot = 1;
   public static final int ampShot = 2;
   public static final double speakerShotSpeed = 0.5;
-  public static final double ampShotSpeed = 0.2;
+  public static final double ampShotSpeed = 0.33;
   //This determines how long we want to spin the shooter motors when calling Shoot command
   public static final int spinShooterTimeMs = 5000;
   public static final int reverse = -1;
@@ -64,10 +65,14 @@ public final class Constants {
   public static final double flipperFlipDuration = 3;
 
   //Sucker related constants
-  public static final double suckerSuckSpeed = 1;
+  public static final double suckerSuckSpeed = .8;
 
   //Belt related constants
-  public static final double beltMoveSpeed = 0.5;
+  public static final double beltMoveSpeed = .9;
+
+  //Servo related constnats
+  public static final double servoMoveSpeed = 1;
+  public static final double servoShootDelaySec = 2;
   
 
   // Autonomous values

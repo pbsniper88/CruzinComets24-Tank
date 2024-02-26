@@ -8,18 +8,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shooter;
 
 //Shoot command that uses the Shooter subsystem
-public class Shoot extends Command {
+public class ShootWithServo extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   //Variable to hold our Shooter subsystem
   private final Shooter m_shooter;
+  private final Servo m_servo;
   //Is either 1 or 2, determines if we want to shoot powerful or weak
   public int shotType;
   //Keeps track of when this command started
   public long startTime;
 
   //This command is constructed within Robot class, found in configAuxBindings() method
-  public Shoot(Shooter subsystem, int shotType) {
+  public ShootWithServo(Shooter subsystem, int shotType, Servo subsystem2) {
     m_shooter = subsystem;
+    m_servo = subsystem2;
     this.shotType = shotType;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -38,6 +40,8 @@ public class Shoot extends Command {
       m_shooter.setSpeed(Constants.ampShotSpeed);
     }
 
+    Timer.delay(Constants.servoShootDelaySec);
+    m_servo.setSpeed(Constants.servoMoveSpeed * -1);
     
   }
 
@@ -52,6 +56,7 @@ public class Shoot extends Command {
   public void end(boolean interrupted) {
     //Stop the shooter motors
     m_shooter.setSpeed(0);
+    m_servo.setSpeed(0);
   }
 
   // Returns true to call end()

@@ -20,23 +20,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Flip;
-import frc.robot.commands.MoveBelt;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.Suck;
-import frc.robot.commands.TelemetryPublisher;
-import frc.robot.commands.TelemetryPublisher;
-import frc.robot.subsystems.Wheel;
-import frc.robot.subsystems.TankDrive;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Belt;
-// import frc.robot.subsystems.Flipper;
-import frc.robot.subsystems.Sucker;
-import frc.robot.commands.Autonomous.AutonomousScheduler;
-import frc.robot.commands.Autonomous.DriveForwardAction;
-import frc.robot.commands.Autonomous.TurnAction;
-import frc.robot.commands.Autonomous.DriveReverseAction;
-import frc.robot.commands.Autonomous.ShootAction;
+import frc.robot.subsystems.*;
+import frc.robot.commands.*;
+import frc.robot.commands.Autonomous.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController.Button;
 
@@ -58,6 +44,7 @@ public class Robot extends TimedRobot {
   // private static Flipper flipper = new Flipper(Constants.flipperPort);
   private static Sucker sucker = new Sucker(Constants.suckerPort);
   private static Belt belt = new Belt(Constants.beltPort);
+  private static Servo servo = new Servo(Constants.servoPort);
   private static XboxController controllerOne = new XboxController(Constants.driverController);
   private PowerDistribution m_PD = new PowerDistribution();
   private static int counter = 0;
@@ -228,7 +215,11 @@ public class Robot extends TimedRobot {
 
     JoystickButton beltButton = new JoystickButton(Constants.auxController, Button.kA.value);
     beltButton.whileTrue(new MoveBelt(belt, true));
-    beltButton.whileFalse(new MoveBelt(belt, false));
+    beltButton.onFalse(new MoveBelt(belt, false));
+
+    JoystickButton servoButton = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
+    servoButton.whileTrue(new MoveServo(servo, true));
+    servoButton.onFalse(new MoveServo(servo, false));
 
   }
 }
