@@ -1,9 +1,11 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj2.command.Command;
 
-public class Solenoid extends Commands {
+
+public class Solenoid extends Command {
     public int m_direction;
-   public Relay m_relay = new Relay(0);
+    public Relay m_relay = new Relay(0);
     public Solenoid(int direction){
         m_direction = direction;
     }

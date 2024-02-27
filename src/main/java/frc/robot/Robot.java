@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController.Button;
 
 
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -59,7 +60,6 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public double ultrasonicSensorRange = 0;
   public double voltageScaleFactor = 1;
-  private final Relay m_relay = new Relay(0);
   
 
   // private static GyroSubsystem m_gyro = new GyroSubsystem();
@@ -71,7 +71,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Robot Vision to See
-    CameraServer.startAutomaticCapture();
     configAuxBindings();
     
 
@@ -228,8 +227,8 @@ public class Robot extends TimedRobot {
     servoButton.onFalse(new MoveServo(servo, false));
 
     JoystickButton solenoidButton = new JoystickButton(Constants.auxController, Button.kLeftBumper.value);
-    servoButton.onTrue(new Relay(0).set(Relay.Value.kForward));
-    servoButton.whileFalse(new Relay(0).set(Relay.Value.kOff));
+    solenoidButton.onTrue(new Solenoid(1));
+    solenoidButton.whileFalse(new Solenoid(0));
 
     // JoystickButton flipUpButton = new JoystickButton(controllerOne, Button.kX.value);
     // flipUpButton.whileTrue(new Flip(flipper, 0));
