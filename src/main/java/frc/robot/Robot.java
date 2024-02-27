@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+// Solenoid
+import edu.wpi.first.wpilibj.Relay;
+
 import javax.swing.plaf.TreeUI;
 import edu.wpi.first.cameraserver.CameraServer;
 
@@ -56,6 +59,8 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public double ultrasonicSensorRange = 0;
   public double voltageScaleFactor = 1;
+  private final Relay m_relay = new Relay(0);
+  
 
   // private static GyroSubsystem m_gyro = new GyroSubsystem();
 
@@ -221,6 +226,10 @@ public class Robot extends TimedRobot {
     JoystickButton servoButton = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
     servoButton.whileTrue(new MoveServo(servo, true));
     servoButton.onFalse(new MoveServo(servo, false));
+
+    JoystickButton solenoidButton = new JoystickButton(Constants.auxController, Button.kLeftBumper.value);
+    servoButton.onTrue(new Relay(0).set(Relay.Value.kForward));
+    servoButton.whileFalse(new Relay(0).set(Relay.Value.kOff));
 
     // JoystickButton flipUpButton = new JoystickButton(controllerOne, Button.kX.value);
     // flipUpButton.whileTrue(new Flip(flipper, 0));
