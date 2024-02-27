@@ -14,10 +14,15 @@ public class Flip extends Command {
   //Is either 1 or 2, determines if we want to shoot powerful or weak
   //Keeps track of when this command started
   public long startTime;
+  //State 0 = Flip Up
+  //State 1 = Stay Up
+  //State 2 = Let fall because of gravity
+  private int state;
 
   //This command is constructed within Robot class, found in configAuxBindings() method
-  public Flip(Flipper subsystem) {
+  public Flip(Flipper subsystem, int state) {
     m_flipper = subsystem;
+    this.state = state;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -25,9 +30,19 @@ public class Flip extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startTime = System.currentTimeMillis();
-    m_flipper.setSpeed(Constants.flipperFlipSpeed);
+  if(state == 0){
+      m_flipper.setSpeed(Constants.flipperFlipSpeed * -1);
   }
+
+  else if (state == 1) {
+      m_flipper.setSpeed(Constants.flipperStaySpeed);
+  }
+
+  else if (state == 2){
+    m_flipper.setSpeed(0);
+  }
+
+}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -38,15 +53,12 @@ public class Flip extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_flipper.setSpeed(Constants.flipperFlipSpeed * -1);
-    Timer.delay(Constants.flipperFlipDuration);
-    //Stop the shooter motors
-    m_flipper.setSpeed(0);
+
   }
 
   // Returns true to call end()
   @Override
   public boolean isFinished() {
-    return (System.currentTimeMillis() - startTime) >= Constants.spinShooterTimeMs;
+    return true;
   }
 }

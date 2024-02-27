@@ -33,6 +33,7 @@ public final class Constants {
   public static final int auxControllerPort = 1;
 
   //You can put auxController in Constants if you want
+
   public static XboxController auxController = new XboxController(Constants.auxControllerPort);
 
   //These are the cables connected to the PWN Section on the RoboRio, labled 0-9
@@ -61,7 +62,8 @@ public final class Constants {
   public static final int reverse = -1;
 
   //Flipper related constants
-  public static final double flipperFlipSpeed = 0.5;
+  public static final double flipperFlipSpeed = 0.02;
+  public static final double flipperStaySpeed = 0.01;
   public static final double flipperFlipDuration = 3;
 
   //Sucker related constants
@@ -82,5 +84,6 @@ public final class Constants {
   public static final double AutoReverseRate = -0.5;
   public static final double WheelDiameter = 0.5; // Feet
   public static final double Pi = 3.14159265358979; // 15 digits
+  public static final double ShooterSpinTimeTillServoPush = 3.0;
 
 }

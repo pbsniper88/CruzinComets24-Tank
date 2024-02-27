@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
   private static Wheel rightSide = new Wheel (Constants.rightMotor);
   private static Wheel leftSide = new Wheel (Constants.leftMotor);
   private static Shooter shooter = new Shooter(Constants.shooterPort);
-  // private static Flipper flipper = new Flipper(Constants.flipperPort);
+  private static Flipper flipper = new Flipper(Constants.flipperPort);
   private static Sucker sucker = new Sucker(Constants.suckerPort);
   private static Belt belt = new Belt(Constants.beltPort);
   private static Servo servo = new Servo(Constants.servoPort);
@@ -130,11 +130,15 @@ public class Robot extends TimedRobot {
 
 
     
+    //Auton 1 - Robot is flush and touching with the back wall, facing away from the drivers.
+    //Robot will be 6 inches away from the wall on the right (Measured Bumper to wall)
 
 
     if (autonStyle == 1){
-    autoScheduler.addAction(new DriveReverseAction(secondsRunning, m_tankdrive));
-    autoScheduler.addAction(new ShootAction(3, shooter, Constants.speakerShot));
+    autoScheduler.addAction(new DriveForwardAction(0.66, m_tankdrive));
+    autoScheduler.addAction(new TurnAction(.5, false, m_tankdrive));
+    autoScheduler.addAction(new DriveReverseAction(0.1, m_tankdrive));
+    
     // Distance in feet
     // autoScheduler.addAction(new DriveForwardAction(secondsRunning, m_tankdrive));
     // autoScheduler.addAction(new TurnAction(secondsRunning, false, m_tankdrive));
@@ -206,9 +210,6 @@ public class Robot extends TimedRobot {
     JoystickButton shootAmpButton = new JoystickButton(Constants.auxController, Button.kY.value);
     shootAmpButton.onTrue(new Shoot(shooter, Constants.ampShot));
 
-    // JoystickButton flipRingButton = new JoystickButton(Constants.auxController, Button.kA.value);
-    // flipRingButton.onTrue(new Flip(flipper));
-
     JoystickButton suckButton = new JoystickButton(Constants.auxController, Button.kB.value);
     suckButton.whileTrue(new Suck(sucker, true));
     suckButton.onFalse(new Suck(sucker, false));
@@ -220,6 +221,18 @@ public class Robot extends TimedRobot {
     JoystickButton servoButton = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
     servoButton.whileTrue(new MoveServo(servo, true));
     servoButton.onFalse(new MoveServo(servo, false));
+
+    // JoystickButton flipUpButton = new JoystickButton(controllerOne, Button.kX.value);
+    // flipUpButton.whileTrue(new Flip(flipper, 0));
+    // flipUpButton.onFalse(new Flip(flipper, 1));
+
+    // JoystickButton loosenFlipperButton = new JoystickButton(controllerOne, Button.kY.value);
+    // loosenFlipperButton.onTrue(new Flip(flipper, 2));
+
+
+
+
+
 
   }
 }
