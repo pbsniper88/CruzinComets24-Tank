@@ -60,6 +60,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public double ultrasonicSensorRange = 0;
   public double voltageScaleFactor = 1;
+  public Relay m_relay = new Relay(0);
   
 
   // private static GyroSubsystem m_gyro = new GyroSubsystem();
@@ -227,8 +228,8 @@ public class Robot extends TimedRobot {
     servoButton.onFalse(new MoveServo(servo, false));
 
     JoystickButton solenoidButton = new JoystickButton(Constants.auxController, Button.kLeftBumper.value);
-    solenoidButton.onTrue(new Solenoid(1));
-    solenoidButton.whileFalse(new Solenoid(0));
+    solenoidButton.onTrue(new Solenoid(1, m_relay));
+    solenoidButton.whileFalse(new Solenoid(0, m_relay));
 
     // JoystickButton flipUpButton = new JoystickButton(controllerOne, Button.kX.value);
     // flipUpButton.whileTrue(new Flip(flipper, 0));
