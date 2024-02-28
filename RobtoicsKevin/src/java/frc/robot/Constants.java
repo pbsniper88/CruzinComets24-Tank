@@ -26,8 +26,6 @@ public final class Constants {
     static double W = 1.0;
     public static final double drive_r = Math.sqrt ((L * L) + (W * W));
   }
-  public static final double deadZone = 0.1;
-  public static final double maxSpeed = 1.0;
   public static final int kPIDLoopIdx = 0;
 	public static final int kTimeoutMs = 30;
 
@@ -47,4 +45,7 @@ public final class Constants {
 
   public static XboxController driverController = new XboxController(0);
   public static XboxController auxController = new XboxController(1);
+
+
+
 }
