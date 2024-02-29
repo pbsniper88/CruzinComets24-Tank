@@ -31,7 +31,7 @@ public class Flip extends Command {
   @Override
   public void initialize() {
   if(state == 0){
-      m_flipper.setSpeed(Constants.flipperFlipSpeed * -1);
+      m_flipper.setSpeed(Constants.flipperFlipSpeed);
   }
 
   else if (state == 1) {
@@ -39,7 +39,7 @@ public class Flip extends Command {
   }
 
   else if (state == 2){
-    m_flipper.setSpeed(0);
+    m_flipper.setSpeed(-Constants.flipperDownSpeed);
   }
 
 }

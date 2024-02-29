@@ -44,7 +44,8 @@ public class Robot extends TimedRobot {
   private static Flipper flipper = new Flipper(Constants.flipperPort);
   private static Sucker sucker = new Sucker(Constants.suckerPort);
   private static Belt belt = new Belt(Constants.beltPort);
-  private static Servo servo = new Servo(Constants.servoPort);
+  // private static Servo servo = new Servo(Constants.servoPort);
+  private static Solenoid solenoid = new Solenoid(Constants.solenoidPort);
   private static XboxController controllerOne = new XboxController(Constants.driverController);
   private PowerDistribution m_PD = new PowerDistribution();
   private static int counter = 0;
@@ -138,6 +139,8 @@ public class Robot extends TimedRobot {
     autoScheduler.addAction(new DriveForwardAction(0.66, m_tankdrive));
     autoScheduler.addAction(new TurnAction(.5, false, m_tankdrive));
     autoScheduler.addAction(new DriveReverseAction(0.1, m_tankdrive));
+    autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.ampShot));
+    autoScheduler.addAction(new DriveForwardAction(.5, m_tankdrive));
     
     // Distance in feet
     // autoScheduler.addAction(new DriveForwardAction(secondsRunning, m_tankdrive));
@@ -214,20 +217,26 @@ public class Robot extends TimedRobot {
     suckButton.whileTrue(new Suck(sucker, true));
     suckButton.onFalse(new Suck(sucker, false));
 
-    JoystickButton beltButton = new JoystickButton(Constants.auxController, Button.kA.value);
+    JoystickButton beltButton = new JoystickButton(controllerOne, Button.kA.value);
     beltButton.whileTrue(new MoveBelt(belt, true));
     beltButton.onFalse(new MoveBelt(belt, false));
 
-    JoystickButton servoButton = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
-    servoButton.whileTrue(new MoveServo(servo, true));
-    servoButton.onFalse(new MoveServo(servo, false));
+    // JoystickButton servoButton = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
+    // servoButton.whileTrue(new MoveServo(servo, true));
+    // servoButton.onFalse(new MoveServo(servo, false));
 
-    // JoystickButton flipUpButton = new JoystickButton(controllerOne, Button.kX.value);
-    // flipUpButton.whileTrue(new Flip(flipper, 0));
-    // flipUpButton.onFalse(new Flip(flipper, 1));
+    JoystickButton solenoidButton = new JoystickButton(Constants.auxController, Button.kA.value);
+    solenoidButton.onTrue(new SolenoidMove(solenoid, true));
+    solenoidButton.whileFalse(new SolenoidMove(solenoid, false));
 
-    // JoystickButton loosenFlipperButton = new JoystickButton(controllerOne, Button.kY.value);
-    // loosenFlipperButton.onTrue(new Flip(flipper, 2));
+
+    JoystickButton flipUpButton = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
+    flipUpButton.whileTrue(new Flip(flipper, 0));
+    flipUpButton.onFalse(new Flip(flipper, 1));
+
+    JoystickButton loosenFlipperButton = new JoystickButton(Constants.auxController, Button.kLeftBumper.value);
+    loosenFlipperButton.whileTrue(new Flip(flipper, 2));
+    loosenFlipperButton.onFalse(new Flip(flipper, 1));
 
 
 

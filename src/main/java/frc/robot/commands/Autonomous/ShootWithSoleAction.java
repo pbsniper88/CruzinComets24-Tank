@@ -2,21 +2,23 @@ package frc.robot.commands.Autonomous;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Servo;
+import frc.robot.subsystems.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 
-public class ShootWithServoAction implements Action{
+
+public class ShootWithSoleAction implements Action{
         //Determines how long to drive forward
     private double duration;
     //Keeps track of when this action started
     private long startTime;
     //Variable that accesses our TankDrive subsystem
     private Shooter shooter;
-    private Servo servo;
+    private Solenoid solenoid;
     private int shotType;
     
-    public ShootWithServoAction(Shooter subsystem, Servo subsystem2, int shotType){
+    public ShootWithSoleAction(Shooter subsystem, Solenoid subsystem2, int shotType){
         shooter = subsystem;
-        servo = subsystem2;
+        solenoid = subsystem2;
         this.shotType = shotType;
     }
 
@@ -31,6 +33,9 @@ public class ShootWithServoAction implements Action{
           else if (shotType == Constants.ampShot){
             shooter.setSpeed(Constants.ampShotSpeed);
           }
+
+        Timer.delay(Constants.ShooterSpinTimeTillServoPush);
+        solenoid.setForward();
     }
 
     @Override
@@ -39,12 +44,13 @@ public class ShootWithServoAction implements Action{
 
     @Override
     public void end() {
+        solenoid.stopMotor();
         shooter.setSpeed(0);
     }
 
     @Override
     public boolean isFinished() {
-        return (System.currentTimeMillis() - startTime) >= Constants.ShooterSpinTimeTillServoPush * 1000;
+        return (System.currentTimeMillis() - startTime) >= (Constants.ShooterSpinTimeTillServoPush + 2) * 1000;
     }
     
 }
