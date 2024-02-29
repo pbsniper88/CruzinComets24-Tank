@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.Relay;
 
 import javax.swing.plaf.TreeUI;
 import edu.wpi.first.cameraserver.CameraServer;
-
-
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoMode;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -61,7 +61,6 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public double ultrasonicSensorRange = 0;
   public double voltageScaleFactor = 1;
-  public Relay m_relay = new Relay(0);
   
 
   // private static GyroSubsystem m_gyro = new GyroSubsystem();
@@ -73,6 +72,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Robot Vision to See
+    UsbCamera camera = CameraServer.startAutomaticCapture();
+    VideoMode videoMode = new VideoMode(1, 1280, 720, 10);
+    camera.setVideoMode(videoMode);
+  
     configAuxBindings();
     
 
@@ -141,12 +144,11 @@ public class Robot extends TimedRobot {
 
 
     if (autonStyle == 1){
-    autoScheduler.addAction(new DriveForwardAction(0.66, m_tankdrive));
+    autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
+    autoScheduler.addAction(new DriveForwardAction(0.3, m_tankdrive));
     autoScheduler.addAction(new TurnAction(.5, false, m_tankdrive));
     autoScheduler.addAction(new DriveReverseAction(0.1, m_tankdrive));
     autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.ampShot));
-    autoScheduler.addAction(new DriveForwardAction(.5, m_tankdrive));
-    
     // Distance in feet
     // autoScheduler.addAction(new DriveForwardAction(secondsRunning, m_tankdrive));
     // autoScheduler.addAction(new TurnAction(secondsRunning, false, m_tankdrive));
@@ -154,9 +156,7 @@ public class Robot extends TimedRobot {
     }
 
     else if (autonStyle == 2){
-      m_tankdrive.autonDrive(-0.1, -0.1);
-      Timer.delay(5);
-      m_tankdrive.autonDrive(0, 0);
+
     }
 
 
@@ -166,7 +166,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     autoScheduler.run();
-    
   }
 
   @Override
@@ -218,11 +217,11 @@ public class Robot extends TimedRobot {
     JoystickButton shootAmpButton = new JoystickButton(Constants.auxController, Button.kY.value);
     shootAmpButton.onTrue(new Shoot(shooter, Constants.ampShot));
 
-    JoystickButton suckButton = new JoystickButton(Constants.auxController, Button.kB.value);
+    JoystickButton suckButton = new JoystickButton(controllerOne, Button.kRightBumper.value);
     suckButton.whileTrue(new Suck(sucker, true));
     suckButton.onFalse(new Suck(sucker, false));
 
-    JoystickButton beltButton = new JoystickButton(controllerOne, Button.kA.value);
+    JoystickButton beltButton = new JoystickButton(Constants.auxController, Button.kA.value);
     beltButton.whileTrue(new MoveBelt(belt, true));
     beltButton.onFalse(new MoveBelt(belt, false));
 
@@ -230,14 +229,9 @@ public class Robot extends TimedRobot {
     // servoButton.whileTrue(new MoveServo(servo, true));
     // servoButton.onFalse(new MoveServo(servo, false));
 
-    JoystickButton solenoidButton = new JoystickButton(Constants.auxController, Button.kA.value);
+    JoystickButton solenoidButton = new JoystickButton(Constants.auxController, Button.kB.value);
     solenoidButton.onTrue(new SolenoidMove(solenoid, true));
     solenoidButton.whileFalse(new SolenoidMove(solenoid, false));
-
-
-    // JoystickButton flipUpButton = new JoystickButton(controllerOne, Button.kX.value);
-    // flipUpButton.whileTrue(new Flip(flipper, 0));
-    // flipUpButton.onFalse(new Flip(flipper, 1));
 
 
     JoystickButton flipUpButton = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
@@ -248,6 +242,9 @@ public class Robot extends TimedRobot {
     loosenFlipperButton.whileTrue(new Flip(flipper, 2));
     loosenFlipperButton.onFalse(new Flip(flipper, 1));
 
+    JoystickButton activateFlipperPassivePowerButton = new JoystickButton(Constants.auxController, Button.kRightStick.value);
+    activateFlipperPassivePowerButton.onTrue(new Flip(flipper, 3));
+    
 
 
 

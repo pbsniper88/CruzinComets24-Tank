@@ -35,11 +35,16 @@ public class Flip extends Command {
   }
 
   else if (state == 1) {
-      m_flipper.setSpeed(Constants.flipperStaySpeed);
+      m_flipper.setSpeed(0);
   }
 
   else if (state == 2){
     m_flipper.setSpeed(-Constants.flipperDownSpeed);
+  }
+
+  else if (state == 3){
+    m_flipper.setSpeed(0.35);
+    System.out.println("Balls");
   }
 
 }

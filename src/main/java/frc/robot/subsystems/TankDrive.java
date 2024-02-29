@@ -49,13 +49,14 @@ public class TankDrive extends SubsystemBase {
   }
 
   public void drive(double leftJoystickY, double rightJoystickY) {
-    
+    if (Math.abs(leftJoystickY - rightJoystickY) < 0.1){
+      leftJoystickY = rightJoystickY;
+    }
+
     double leftVelocity = leftSpeedLimiter
         .calculate(MathUtil.applyDeadband(leftJoystickY, Constants.deadZone) * Constants.maxSpeed);
     double rightVelocity = rightSpeedLimiter
         .calculate(MathUtil.applyDeadband(rightJoystickY, Constants.deadZone) * Constants.maxSpeed);
-
-        
 
     leftSide.setMotorVelocity(leftVelocity * -1);
     rightSide.setMotorVelocity(rightVelocity);

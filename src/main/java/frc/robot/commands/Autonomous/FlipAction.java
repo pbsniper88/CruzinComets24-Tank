@@ -11,16 +11,28 @@ public class FlipAction implements Action{
     private long startTime;
     //Variable that accesses our TankDrive subsystem
     private Flipper flipper;
+    private int state;
 
-    public FlipAction(double duration, Flipper subsystem){
+    public FlipAction(double duration, Flipper subsystem, int state){
         this.duration = duration;
         flipper = subsystem;
+        this.state = state;
     }
 
     @Override
     public void start() {
         startTime = System.currentTimeMillis();
-        flipper.setSpeed(Constants.flipperFlipSpeed);    
+        if (state == 1){
+            flipper.setSpeed(Constants.flipperFlipSpeed);    
+        }
+
+        else if (state == 2) {
+            flipper.setSpeed(Constants.flipperDownSpeed);
+        }
+
+        else if (state == 3){
+            flipper.setSpeed(Constants.flipperStaySpeed);
+        }
 }
 
     @Override
@@ -30,10 +42,9 @@ public class FlipAction implements Action{
 
     @Override
     public void end() {
-        flipper.setSpeed(Constants.flipperFlipSpeed * -1);
-        Timer.delay(Constants.flipperFlipDuration);
-        //Stop the shooter motors
-        flipper.setSpeed(0);    
+        if (state == 1 || state == 2){
+            flipper.setSpeed(0);    
+        }
 }
 
     @Override
