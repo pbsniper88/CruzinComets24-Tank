@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+// Solenoid
+import edu.wpi.first.wpilibj.Relay;
+
 import javax.swing.plaf.TreeUI;
 import edu.wpi.first.cameraserver.CameraServer;
 
@@ -25,6 +28,7 @@ import frc.robot.commands.*;
 import frc.robot.commands.Autonomous.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController.Button;
+
 
 
 /**
@@ -57,6 +61,8 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public double ultrasonicSensorRange = 0;
   public double voltageScaleFactor = 1;
+  public Relay m_relay = new Relay(0);
+  
 
   // private static GyroSubsystem m_gyro = new GyroSubsystem();
 
@@ -67,7 +73,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Robot Vision to See
-    CameraServer.startAutomaticCapture();
     configAuxBindings();
     
 
@@ -228,6 +233,11 @@ public class Robot extends TimedRobot {
     JoystickButton solenoidButton = new JoystickButton(Constants.auxController, Button.kA.value);
     solenoidButton.onTrue(new SolenoidMove(solenoid, true));
     solenoidButton.whileFalse(new SolenoidMove(solenoid, false));
+
+
+    // JoystickButton flipUpButton = new JoystickButton(controllerOne, Button.kX.value);
+    // flipUpButton.whileTrue(new Flip(flipper, 0));
+    // flipUpButton.onFalse(new Flip(flipper, 1));
 
 
     JoystickButton flipUpButton = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
