@@ -57,7 +57,7 @@ public final class Constants {
   public static final int speakerShot = 1;
   public static final int ampShot = 2;
   public static final double speakerShotSpeed = 0.5;
-  public static final double ampShotSpeed = 0.33;
+  public static final double ampShotSpeed = 0.28;
   //This determines how long we want to spin the shooter motors when calling Shoot command
   public static final int spinShooterTimeMs = 5000;
   public static final int reverse = -1;
@@ -87,5 +87,8 @@ public final class Constants {
   public static final double WheelDiameter = 0.5; // Feet
   public static final double Pi = 3.14159265358979; // 15 digits
   public static final double ShooterSpinTimeTillServoPush = 3.0;
+
+  public static final double wallToAmpCentered = 0.75;
+  public static final double ninetyDeg = 0.5;
 
 }

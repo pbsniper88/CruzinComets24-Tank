@@ -136,27 +136,55 @@ public class Robot extends TimedRobot {
     //DriveForwardAction for approx 2 seconds is 188 inches
     //DriveReverseAction for approx 1 second is 
 
+    //Wall to endAmpZone is 133 in
+    //Wall to middleOfAmp is approx 80 in
+    //Speaker to wall is 3 feet, 36 in
+    //Amp zone 130 in
+    //Speaker to amp zone is 94 in
+    //DF for 0.75 to get near
+    //Start auton 1 ft
+    
 
 
     
     //Auton 1 - Robot is flush and touching with the back wall, facing away from the drivers.
     //Robot will be 6 inches away from the wall on the right (Measured Bumper to wall)
 
-
+//Red team amp shot auton 1
     if (autonStyle == 1){
     autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
-    autoScheduler.addAction(new DriveForwardAction(0.3, m_tankdrive));
-    autoScheduler.addAction(new TurnAction(.5, false, m_tankdrive));
-    autoScheduler.addAction(new DriveReverseAction(0.1, m_tankdrive));
+    autoScheduler.addAction(new DriveForwardAction(Constants.wallToAmpCentered, m_tankdrive));
+    autoScheduler.addAction(new TurnAction(Constants.ninetyDeg, false, m_tankdrive));
+    autoScheduler.addAction(new DriveReverseAction(0.3, m_tankdrive));
     autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.ampShot));
-    // Distance in feet
-    // autoScheduler.addAction(new DriveForwardAction(secondsRunning, m_tankdrive));
-    // autoScheduler.addAction(new TurnAction(secondsRunning, false, m_tankdrive));
+    //Get away from the amp slightly
+    autoScheduler.addAction(new DriveForwardAction(.2, m_tankdrive));
+    autoScheduler.addAction(new TurnAction(Constants.ninetyDeg, true, m_tankdrive));
+    //Should be positioned ahead of the spike mark
+    autoScheduler.addAction(new DriveForwardAction(0.6, m_tankdrive));
+
     autoScheduler.init();
     }
-
+//Blue team amp shot auton 2
     else if (autonStyle == 2){
-
+    autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
+    autoScheduler.addAction(new DriveForwardAction(Constants.wallToAmpCentered, m_tankdrive));
+    autoScheduler.addAction(new TurnAction(Constants.ninetyDeg, true, m_tankdrive));
+    autoScheduler.addAction(new DriveReverseAction(0.3, m_tankdrive));
+    autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.ampShot));
+    //Get away from the amp slightly
+    autoScheduler.addAction(new DriveForwardAction(.2, m_tankdrive));
+    autoScheduler.addAction(new TurnAction(Constants.ninetyDeg, false, m_tankdrive));
+    //Should be positioned ahead of the spike mark
+    autoScheduler.addAction(new DriveForwardAction(0.6, m_tankdrive));
+    autoScheduler.init();
+    }
+//Both team speaker shot (straight) auton 3
+    else if (autonStyle == 3){
+    autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
+    autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
+    autoScheduler.addAction(new DriveForwardAction(0.85, m_tankdrive));
+    autoScheduler.init();
     }
 
 
