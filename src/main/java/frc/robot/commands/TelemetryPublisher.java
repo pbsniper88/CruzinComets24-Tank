@@ -31,5 +31,9 @@ public class TelemetryPublisher {
         }
     }
 
+    public void publishShotTelemetry(String name, String type){
+                SmartDashboard.putString(name, type);
+    }
+
     // You can overload this method for different data types or sensors if needed    
 }

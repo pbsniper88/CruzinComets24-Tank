@@ -25,6 +25,10 @@ private PWMTalonSRX shooterMotor;
     //Multiple by -1 to reverse direction
     shooterMotor.set(speed * Constants.reverse);
   }
+
+  public double getSpeed(){
+    return shooterMotor.get();
+  }
   
   // Stops both motors for the shooter
   public void stopMotor(){
