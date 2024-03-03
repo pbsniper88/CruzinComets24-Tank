@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Sucker extends SubsystemBase {
-    private PWMTalonSRX suckerMotor;
+  private PWMTalonSRX suckerMotor;
   public Sucker(int suckerPort) {
     suckerMotor = new PWMTalonSRX(suckerPort);
   }

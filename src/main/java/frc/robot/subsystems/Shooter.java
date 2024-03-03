@@ -26,6 +26,10 @@ private PWMTalonSRX shooterMotor;
     shooterMotor.set(speed * Constants.reverse);
   }
 
+  public void setVoltage(double volts){
+    shooterMotor.setVoltage(volts);
+  }
+
   public double getSpeed(){
     return shooterMotor.get();
   }

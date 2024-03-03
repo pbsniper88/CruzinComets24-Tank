@@ -90,6 +90,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Auton Style", 0);
     SmartDashboard.putNumber("Seconds Running", 0);
     SmartDashboard.putNumber("Ultra Sensor Range", 0);
+    SmartDashboard.putNumber("Speaker Shooter Voltage", 0);
+    SmartDashboard.putNumber("Amp Shooter Voltage", 0);
   }
 
   /**
@@ -150,7 +152,7 @@ public class Robot extends TimedRobot {
     //Auton 1 - Robot is flush and touching with the back wall, facing away from the drivers.
     //Robot will be 6 inches away from the wall on the right (Measured Bumper to wall)
 
-//Red team amp shot auton 1
+    //Red team amp shot auton 1
     if (autonStyle == 1){
     autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
     autoScheduler.addAction(new DriveForwardAction(Constants.wallToAmpCentered, m_tankdrive));
@@ -165,7 +167,7 @@ public class Robot extends TimedRobot {
 
     autoScheduler.init();
     }
-//Blue team amp shot auton 2
+    //Blue team amp shot auton 2
     else if (autonStyle == 2){
     autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
     autoScheduler.addAction(new DriveForwardAction(Constants.wallToAmpCentered, m_tankdrive));
@@ -179,11 +181,48 @@ public class Robot extends TimedRobot {
     autoScheduler.addAction(new DriveForwardAction(0.6, m_tankdrive));
     autoScheduler.init();
     }
-//Both team speaker shot (straight) auton 3
+    //Both team speaker shot (straight) auton 3
     else if (autonStyle == 3){
     autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
     autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
     autoScheduler.addAction(new DriveForwardAction(0.85, m_tankdrive));
+    autoScheduler.init();
+    }
+
+    else if (autonStyle == 4){
+    autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
+    autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
+    autoScheduler.addAction(new DriveForwardAction(1.3, m_tankdrive));
+    autoScheduler.init();
+    }
+
+    //Red team placement near amp auton 5
+    else if (autonStyle == 5){
+    autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
+    autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
+    autoScheduler.addAction(new DriveForwardAction(0.5, m_tankdrive));
+    autoScheduler.addAction(new TurnAction(0.3, false, m_tankdrive));
+    autoScheduler.addAction(new DriveForwardAction(0.8, m_tankdrive));
+    autoScheduler.init();
+    }
+
+    //Blue team placement near amp auton 6
+    else if (autonStyle == 6){
+    autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
+    autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
+    autoScheduler.addAction(new DriveForwardAction(0.5, m_tankdrive));
+    autoScheduler.addAction(new TurnAction(0.3, true, m_tankdrive));
+    autoScheduler.addAction(new DriveForwardAction(0.8, m_tankdrive));
+    autoScheduler.init();
+    }
+    //Auton 3 but it will attempt to pick up another piece
+    else if (autonStyle == 7){
+    autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
+    autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
+    autoScheduler.addAction(new FlipAction(0.4, flipper, 2));
+    autoScheduler.addAction(new DriveAndSuckAction(0.85, m_tankdrive, sucker));
+    autoScheduler.addAction(new BeltAction(5, belt));
+    autoScheduler.addAction(new SolenoidAction(1, solenoid));
     autoScheduler.init();
     }
 
