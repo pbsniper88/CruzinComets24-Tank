@@ -48,6 +48,7 @@ public class Robot extends TimedRobot {
   private static Flipper flipper = new Flipper(Constants.flipperPort);
   private static Sucker sucker = new Sucker(Constants.suckerPort);
   private static Belt belt = new Belt(Constants.beltPort);
+  private final Launcher launcher = new Launcher();
   // private static Servo servo = new Servo(Constants.servoPort);
   private static Solenoid solenoid = new Solenoid(Constants.solenoidPort);
   private static XboxController controllerOne = new XboxController(Constants.driverController);
@@ -61,6 +62,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public double ultrasonicSensorRange = 0;
   public double voltageScaleFactor = 1;
+  public int desiredRPM;
   
 
   // private static GyroSubsystem m_gyro = new GyroSubsystem();
@@ -200,7 +202,7 @@ public class Robot extends TimedRobot {
     else if (autonStyle == 5){
     autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
     autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
-    autoScheduler.addAction(new DriveForwardAction(0.5, m_tankdrive));
+    autoScheduler.addAction(new DriveForwardAction(0.2, m_tankdrive));
     autoScheduler.addAction(new TurnAction(0.3, false, m_tankdrive));
     autoScheduler.addAction(new DriveForwardAction(0.8, m_tankdrive));
     autoScheduler.init();
@@ -210,19 +212,21 @@ public class Robot extends TimedRobot {
     else if (autonStyle == 6){
     autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
     autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
-    autoScheduler.addAction(new DriveForwardAction(0.5, m_tankdrive));
+    autoScheduler.addAction(new DriveForwardAction(0.2, m_tankdrive));
     autoScheduler.addAction(new TurnAction(0.3, true, m_tankdrive));
     autoScheduler.addAction(new DriveForwardAction(0.8, m_tankdrive));
     autoScheduler.init();
     }
     //Auton 3 but it will attempt to pick up another piece
     else if (autonStyle == 7){
-    autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
     autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
-    autoScheduler.addAction(new FlipAction(0.4, flipper, 2));
-    autoScheduler.addAction(new DriveAndSuckAction(0.85, m_tankdrive, sucker));
-    autoScheduler.addAction(new BeltAction(5, belt));
+    autoScheduler.addAction(new FlipAction(1, flipper, 2));
+    autoScheduler.addAction(new DriveAndSuckAction(1.2, m_tankdrive, sucker));
+    autoScheduler.addAction(new SuckAction(1, sucker));
+    autoScheduler.addAction(new BeltAction(4, belt));
     autoScheduler.addAction(new SolenoidAction(1, solenoid));
+    autoScheduler.addAction(new DriveReverseAction(1.7, m_tankdrive));
+    autoScheduler.addAction(new ShootWithSoleAction(shooter, solenoid, Constants.speakerShot));
     autoScheduler.init();
     }
 
@@ -278,11 +282,17 @@ public class Robot extends TimedRobot {
   }
 
   public void configAuxBindings(){
-    JoystickButton shootSpeakerButton = new JoystickButton(Constants.auxController, Button.kX.value);
-    shootSpeakerButton.onTrue(new Shoot(shooter, Constants.speakerShot));
+    // JoystickButton shootSpeakerButton = new JoystickButton(Constants.auxController, Button.kX.value);
+    // shootSpeakerButton.onTrue(new Shoot(shooter, Constants.speakerShot));
 
-    JoystickButton shootAmpButton = new JoystickButton(Constants.auxController, Button.kY.value);
-    shootAmpButton.onTrue(new Shoot(shooter, Constants.ampShot));
+    // JoystickButton shootAmpButton = new JoystickButton(Constants.auxController, Button.kY.value);
+    // shootAmpButton.onTrue(new Shoot(shooter, Constants.ampShot));
+
+    JoystickButton shootSpeakerButton = new JoystickButton(Constants.auxController, Button.kX.value);
+    shootSpeakerButton.onTrue(new SetLauncherVelocity(launcher, 20));
+
+    JoystickButton shootSpeakerButton2 = new JoystickButton(Constants.auxController, Button.kY.value);
+    shootSpeakerButton2.onTrue(new SetLauncherVelocity(launcher, 1));
 
     JoystickButton suckButton = new JoystickButton(controllerOne, Button.kRightBumper.value);
     suckButton.whileTrue(new Suck(sucker, true));

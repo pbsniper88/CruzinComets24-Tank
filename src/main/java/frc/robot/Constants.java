@@ -58,7 +58,7 @@ public final class Constants {
   public static final int ampShot = 2;
   public static final double speakerShotSpeed = 0.5;
   //AMP SHOT SPEED SHOULD NOT BE 1, MAKE IT LOWER THAN SPEAKER
-  public static final double ampShotSpeed = 1;
+  public static final double ampShotSpeed = .3;
   public static final double speakerShotVoltage = 2.0;
   public static final double ampShotVoltage = 1.0;
   //This determines how long we want to spin the shooter motors when calling Shoot command
@@ -93,5 +93,20 @@ public final class Constants {
 
   public static final double wallToAmpCentered = 0.75;
   public static final double ninetyDeg = 0.5;
+
+  //Launcher Constants
+  public static final class LauncherConstants {
+    public static final int leftLaunchMotor = 10;
+    public static final int rightLaunchMotor = 11;
+    public static final double proportialPIDConstant = 0.0002;
+    public static final double integralPIDConstant = 0.0;
+    public static final double derivativePIDConstant = 0.0;
+    public static final double integralPIDZone = 0.0;
+    public static final double leftFeedForwardPIDConstant = 0.000175;
+    public static final double rightFeedForwardPIDConstant = 0.000170;
+    public static final double maxPIDOutput = 1.0;
+    public static final double minPIDOutput = 0.0;
+    public static final double velocityPIDTolerance = 30;
+}
 
 }

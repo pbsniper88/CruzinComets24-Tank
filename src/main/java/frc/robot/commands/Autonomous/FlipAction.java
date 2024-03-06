@@ -27,7 +27,7 @@ public class FlipAction implements Action{
         }
 
         else if (state == 2) {
-            flipper.setSpeed(Constants.flipperDownSpeed);
+            flipper.setSpeed(-Constants.flipperDownSpeed);
         }
 
         else if (state == 3){
