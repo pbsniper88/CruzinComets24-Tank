@@ -48,6 +48,7 @@ public class Robot extends TimedRobot {
   private static Flipper flipper = new Flipper(Constants.flipperPort);
   private static Sucker sucker = new Sucker(Constants.suckerPort);
   private static Belt belt = new Belt(Constants.beltPort);
+  private final SpiralSpinner spinner = new SpiralSpinner();
   private final Launcher launcher = new Launcher();
   // private static Servo servo = new Servo(Constants.servoPort);
   private static Solenoid solenoid = new Solenoid(Constants.solenoidPort);
@@ -230,6 +231,11 @@ public class Robot extends TimedRobot {
     autoScheduler.init();
     }
 
+    else if (autonStyle == 8){
+      autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
+      autoScheduler.init();
+    }
+
 
   }
 
@@ -321,8 +327,12 @@ public class Robot extends TimedRobot {
 
     JoystickButton activateFlipperPassivePowerButton = new JoystickButton(Constants.auxController, Button.kRightStick.value);
     activateFlipperPassivePowerButton.onTrue(new Flip(flipper, 3));
-    
 
+    JoystickButton spinSpiralButton = new JoystickButton(controllerOne, Button.kX.value);
+    shootSpeakerButton.onTrue(new SetSpiralSpinnerVelocity(spinner, 20));
+    
+    JoystickButton spinSpiralButton2 = new JoystickButton(controllerOne, Button.kY.value);
+    shootSpeakerButton.onTrue(new SetSpiralSpinnerVelocity(spinner, 1));
 
 
 

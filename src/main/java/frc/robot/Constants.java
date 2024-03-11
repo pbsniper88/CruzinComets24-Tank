@@ -72,7 +72,7 @@ public final class Constants {
   public static final double flipperFlipDuration = 3;
 
   //Sucker related constants
-  public static final double suckerSuckSpeed = .8;
+  public static final double suckerSuckSpeed = 1;
 
   //Belt related constants
   public static final double beltMoveSpeed = .9;
@@ -96,6 +96,8 @@ public final class Constants {
 
   //Launcher Constants
   public static final class LauncherConstants {
+    public static final int targetSpeakerRPM = 800;
+    public static final int targetAmpRPM = 400;
     public static final int leftLaunchMotor = 10;
     public static final int rightLaunchMotor = 11;
     public static final double proportialPIDConstant = 0.0002;
@@ -108,5 +110,19 @@ public final class Constants {
     public static final double minPIDOutput = 0.0;
     public static final double velocityPIDTolerance = 30;
 }
+  public static final class SpiralSpinnerConstants {
+    public static final int leftSpinnerMotor = 100;
+    public static final int rightSpinnerMotor = 100;
+    public static final double proportialPIDConstant = 0.0002;
+    public static final double integralPIDConstant = 0.0;
+    public static final double derivativePIDConstant = 0.0;
+    public static final double integralPIDZone = 0.0;
+    public static final double leftFeedForwardPIDConstant = 0.000175;
+    public static final double rightFeedForwardPIDConstant = 0.000170;
+    public static final double maxPIDOutput = 1.0;
+    public static final double minPIDOutput = 0.0;
+    public static final double velocityPIDTolerance = 30;
+}
+
 
 }
