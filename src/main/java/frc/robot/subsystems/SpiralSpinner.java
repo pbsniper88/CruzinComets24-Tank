@@ -34,7 +34,7 @@ public class SpiralSpinner extends SubsystemBase {
     leftSpinnerMotor = new CANSparkMax(Constants.SpiralSpinnerConstants.leftSpinnerMotor, MotorType.kBrushless);
     rightSpinnerMotor = new CANSparkMax(Constants.SpiralSpinnerConstants.rightSpinnerMotor, MotorType.kBrushless);
 
-    rightSpinnerMotor.setInverted(false);
+    rightSpinnerMotor.setInverted(true);
     leftSpinnerMotor.setInverted(true);
 
     leftMotorEncoder = leftSpinnerMotor.getEncoder();
@@ -64,9 +64,6 @@ public class SpiralSpinner extends SubsystemBase {
   }  
 
   public void setVelocity(double velocity) {
-    if (velocity == 1){
-        desiredRPM = 0;
-    }
     targetVelocity = velocity;
     leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
     rightPIDController.setReference(targetVelocity, ControlType.kVelocity);
