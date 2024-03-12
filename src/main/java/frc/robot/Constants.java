@@ -111,8 +111,8 @@ public final class Constants {
     public static final double velocityPIDTolerance = 30;
 }
   public static final class SpiralSpinnerConstants {
-    public static final int leftSpinnerMotor = 100;
-    public static final int rightSpinnerMotor = 100;
+    public static final int leftSpinnerMotor = 12;
+    public static final int rightSpinnerMotor = 13;
     public static final double proportialPIDConstant = 0.0002;
     public static final double integralPIDConstant = 0.0;
     public static final double derivativePIDConstant = 0.0;
