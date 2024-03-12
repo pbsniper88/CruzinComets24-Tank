@@ -329,10 +329,10 @@ public class Robot extends TimedRobot {
     activateFlipperPassivePowerButton.onTrue(new Flip(flipper, 3));
 
     JoystickButton spinSpiralButton = new JoystickButton(controllerOne, Button.kX.value);
-    shootSpeakerButton.onTrue(new SetSpiralSpinnerVelocity(spinner, 200));
+    spinSpiralButton.whileTrue(new SetSpiralSpinnerVelocity(spinner, 200));
     
     JoystickButton spinSpiralButton2 = new JoystickButton(controllerOne, Button.kY.value);
-    shootSpeakerButton.onTrue(new SetSpiralSpinnerVelocity(spinner, 1));
+    spinSpiralButton2.onTrue(new SetSpiralSpinnerVelocity(spinner, 1));
 
 
 
