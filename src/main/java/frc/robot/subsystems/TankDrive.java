@@ -49,7 +49,7 @@ public class TankDrive extends SubsystemBase {
   }
 
   public void drive(double leftJoystickY, double rightJoystickY) {
-    if (Math.abs(leftJoystickY - rightJoystickY) < 0.25){
+    if (Math.abs(leftJoystickY - rightJoystickY) < 0.30){
       double averageSpeed = (leftJoystickY + rightJoystickY)/2;
       leftJoystickY = averageSpeed;
       rightJoystickY = averageSpeed;

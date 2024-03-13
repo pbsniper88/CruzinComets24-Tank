@@ -64,11 +64,7 @@ public class Launcher extends SubsystemBase {
   }  
 
   public void setVelocity(double velocity) {
-    desiredRPM = (int) SmartDashboard.getNumber("Desired RPM", 0);
-    if (velocity == 1){
-        desiredRPM = 0;
-    }
-    targetVelocity = desiredRPM;
+    targetVelocity = velocity;
     leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
     rightPIDController.setReference(targetVelocity, ControlType.kVelocity);
   }

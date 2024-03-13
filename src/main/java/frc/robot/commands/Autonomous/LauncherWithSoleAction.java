@@ -15,47 +15,48 @@ public class LauncherWithSoleAction implements Action{
     private Solenoid solenoid;
     private int shotType;
     private boolean stop;
+    private long startTime;
+    private int velocity;
     
     public LauncherWithSoleAction(Launcher subsystem, Solenoid subsystem2, int shotType){
-        stop = false;
         launcher = subsystem;
         solenoid = subsystem2;
         this.shotType = shotType;
+        if (shotType == Constants.speakerShot){
+            //This sets the shooter motors to the specific speed we want
+            // launcher.setVelocity(Constants.LauncherConstants.targetSpeakerRPM);
+            velocity = Constants.LauncherConstants.targetSpeakerRPM;
+        }
+      
+        else if (shotType == Constants.ampShot){
+            // launcher.setVelocity(Constants.LauncherConstants.targetAmpRPM);
+            velocity = Constants.LauncherConstants.targetAmpRPM;
+        }
     }
 
     @Override
     public void start() {
-        if (shotType == Constants.speakerShot){
-            //This sets the shooter motors to the specific speed we want
-            launcher.setVelocity(Constants.LauncherConstants.targetSpeakerRPM);
-          }
-      
-          else if (shotType == Constants.ampShot){
-            launcher.setVelocity(Constants.LauncherConstants.targetAmpRPM);
-          }
-
+          startTime = System.currentTimeMillis();
     }
 
     @Override
     public void update() {
-        Timer.delay(2);
-        if (launcher.isOnTarget()){
-            solenoid.setForward();
-            Timer.delay(2);
-            stop = true;
+        launcher.setVelocity(velocity);
+        if(launcher.isOnTarget()){
+            solenoid.setForward(); 
         }
     }
 
     @Override
     public void end() {
         solenoid.stopMotor();
-        launcher.stop();
+        launcher.setVelocity(0);
     }
 
     //Ends action when true
     @Override
     public boolean isFinished() {
-        return stop;
+        return (System.currentTimeMillis() - startTime) >= (Constants.ShooterSpinTimeTillServoPush + 2) * 1000;
     }
     
 }

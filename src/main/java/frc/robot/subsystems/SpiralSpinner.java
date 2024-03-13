@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -29,6 +30,8 @@ public class SpiralSpinner extends SubsystemBase {
   private double targetVelocity = 0; 
   private int rollingAvg = 0;
   private int desiredRPM;
+  private DigitalInput toplimitSwitch = new DigitalInput(0);
+  private DigitalInput bottomlimitSwitch = new DigitalInput(1);  
 
   public SpiralSpinner() {
     leftSpinnerMotor = new CANSparkMax(Constants.SpiralSpinnerConstants.leftSpinnerMotor, MotorType.kBrushless);
@@ -64,6 +67,22 @@ public class SpiralSpinner extends SubsystemBase {
   }  
 
   public void setVelocity(double velocity) {
+    if (toplimitSwitch.get()){
+      velocity = 0;
+    }
+    rightSpinnerMotor.setInverted(true);
+    leftSpinnerMotor.setInverted(true);
+    targetVelocity = velocity;
+    leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
+    rightPIDController.setReference(targetVelocity, ControlType.kVelocity);
+  }
+
+  public void setReverseVelocity(double velocity){
+    if (bottomlimitSwitch.get()){
+      velocity = 0;
+    }
+    rightSpinnerMotor.setInverted(false);
+    leftSpinnerMotor.setInverted(false);
     targetVelocity = velocity;
     leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
     rightPIDController.setReference(targetVelocity, ControlType.kVelocity);

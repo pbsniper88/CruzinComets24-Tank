@@ -32,7 +32,12 @@ public class SetSpiralSpinnerVelocity extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (velocity > 0){
     spinner.setVelocity(velocity);
+    }
+    else {
+    spinner.setReverseVelocity(Math.abs(velocity));
+    }
   }
 
   // Called once the command ends or is interrupted.
