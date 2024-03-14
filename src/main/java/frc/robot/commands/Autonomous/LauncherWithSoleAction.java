@@ -14,13 +14,14 @@ public class LauncherWithSoleAction implements Action{
     private Launcher launcher;
     private Solenoid solenoid;
     private int shotType;
-    private boolean stop;
+    private boolean alreadyShot;
     private long startTime;
     private int velocity;
     
     public LauncherWithSoleAction(Launcher subsystem, Solenoid subsystem2, int shotType){
         launcher = subsystem;
         solenoid = subsystem2;
+        alreadyShot = false;
         this.shotType = shotType;
         if (shotType == Constants.speakerShot){
             //This sets the shooter motors to the specific speed we want
@@ -42,13 +43,15 @@ public class LauncherWithSoleAction implements Action{
     @Override
     public void update() {
         launcher.setVelocity(velocity);
-        if(launcher.isOnTarget()){
-            solenoid.setForward(); 
+        if(launcher.isOnTarget() && alreadyShot == false){
+            alreadyShot = true;
+            solenoid.setForward();
         }
     }
 
     @Override
     public void end() {
+        Timer.delay(0.6);
         solenoid.stopMotor();
         launcher.setVelocity(0);
     }
@@ -56,7 +59,8 @@ public class LauncherWithSoleAction implements Action{
     //Ends action when true
     @Override
     public boolean isFinished() {
-        return (System.currentTimeMillis() - startTime) >= (Constants.ShooterSpinTimeTillServoPush + 2) * 1000;
+        // return (System.currentTimeMillis() - startTime) >= (Constants.ShooterSpinTimeTillServoPush + 2) * 1000;
+        return alreadyShot;
     }
     
 }

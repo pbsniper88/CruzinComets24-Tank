@@ -44,7 +44,6 @@ public class Flip extends Command {
 
   else if (state == 3){
     m_flipper.setSpeed(0.35);
-    System.out.println("Balls");
   }
 
 }

@@ -100,7 +100,7 @@ public final class Constants {
     public static final int targetAmpRPM = 450;
     public static final int leftLaunchMotor = 10;
     public static final int rightLaunchMotor = 11;
-    public static final double proportialPIDConstant = 0.0002;
+    public static final double proportialPIDConstant = 0.0006;
     public static final double integralPIDConstant = 0.0;
     public static final double derivativePIDConstant = 0.0;
     public static final double integralPIDZone = 0.0;
@@ -108,11 +108,12 @@ public final class Constants {
     public static final double rightFeedForwardPIDConstant = 0.000170;
     public static final double maxPIDOutput = 1.0;
     public static final double minPIDOutput = 0.0;
-    public static final double velocityPIDTolerance = 30;
+    public static final double velocityPIDTolerance = 150;
 }
   public static final class SpiralSpinnerConstants {
     public static final int leftSpinnerMotor = 12;
     public static final int rightSpinnerMotor = 13;
+    public static final int spiralSpinnerVelocty = 3000;
     public static final double proportialPIDConstant = 0.0002;
     public static final double integralPIDConstant = 0.0;
     public static final double derivativePIDConstant = 0.0;

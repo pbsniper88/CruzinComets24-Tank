@@ -56,6 +56,7 @@ public class Robot extends TimedRobot {
   private PowerDistribution m_PD = new PowerDistribution();
   private static int counter = 0;
   private int autonStyle;
+  private int secondsToWait;
   private double secondsRunning;
   public boolean slowMode = false;
   public static TankDrive m_tankdrive = new TankDrive (rightSide, leftSide);
@@ -95,6 +96,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Ultra Sensor Range", 0);
     SmartDashboard.putNumber("Speaker Shooter Voltage", 0);
     SmartDashboard.putNumber("Amp Shooter Voltage", 0);
+    SmartDashboard.putNumber("Auton Wait Time", 0);
   }
 
   /**
@@ -120,6 +122,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
+    telemetryPublisher.publishShotTelemetry("Current Shot Type", "Off");
     shooter.stopMotor();
   }
 
@@ -133,6 +136,7 @@ public class Robot extends TimedRobot {
 
     autonStyle = (int) SmartDashboard.getNumber("Auton Style", 0);
     secondsRunning = (double) SmartDashboard.getNumber("Seconds Running", 0);
+    secondsToWait = (int) SmartDashboard.getNumber("Auton Wait Time", 0);
     //TurnAction for approx .3 seconds does 45 degrees
     //TurnAction for approx .5 seconds does 90 degrees
     //TurnAction for approx .9 seconds does 180 degrees
@@ -232,7 +236,9 @@ public class Robot extends TimedRobot {
     }
 
     else if (autonStyle == 8){
+      autoScheduler.addAction(new WaitAction(secondsToWait));
       autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
+      autoScheduler.addAction(new DriveReverseAction(0.4, m_tankdrive));
       //Teleop Code messing with auton
       autoScheduler.init();
     }
@@ -333,10 +339,10 @@ public class Robot extends TimedRobot {
     activateFlipperPassivePowerButton.onTrue(new Flip(flipper, 3));
 
     JoystickButton spinSpiralButton = new JoystickButton(controllerOne, Button.kY.value);
-    spinSpiralButton.whileTrue(new SetSpiralSpinnerVelocity(spinner, 3000));
+    spinSpiralButton.whileTrue(new SetSpiralSpinnerVelocity(spinner, Constants.SpiralSpinnerConstants.spiralSpinnerVelocty));
     
     JoystickButton spinSpiralButton2 = new JoystickButton(controllerOne, Button.kX.value);
-    spinSpiralButton2.whileTrue(new SetSpiralSpinnerVelocity(spinner, -3000));
+    spinSpiralButton2.whileTrue(new SetSpiralSpinnerVelocity(spinner, -Constants.SpiralSpinnerConstants.spiralSpinnerVelocty));
 
 
 

@@ -18,10 +18,13 @@ public class SetLauncherVelocity extends CommandBase {
   private Launcher launcher;
   private double velocity;
   private TelemetryPublisher telemetryPublisher = new TelemetryPublisher();
+  private static String curShotMode;
+
   /**
    * Creates a new SetLauncherVelocity.
    */
   public SetLauncherVelocity(Launcher subsystem, double velocitySource) {
+    curShotMode = SmartDashboard.getString("Current Shot Type", "Off");
     launcher = subsystem; 
     velocity = velocitySource;
     addRequirements(launcher);
@@ -31,7 +34,6 @@ public class SetLauncherVelocity extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    String curShotMode = SmartDashboard.getString("Current Shot Type", "Off");
     if (velocity == Constants.LauncherConstants.targetSpeakerRPM){
       if (curShotMode.equals("Off") || curShotMode.equals("Amp")){
       //This sets the shooter motors to the specific speed we want
@@ -57,6 +59,11 @@ public class SetLauncherVelocity extends CommandBase {
 
 
     }
+
+    else {
+      velocity = 0;
+      telemetryPublisher.publishShotTelemetry("Current Shot Type", "Off");
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -74,6 +81,6 @@ public class SetLauncherVelocity extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
