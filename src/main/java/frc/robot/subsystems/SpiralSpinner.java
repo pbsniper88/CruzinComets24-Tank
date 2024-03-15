@@ -73,6 +73,7 @@ public class SpiralSpinner extends SubsystemBase {
     rightSpinnerMotor.setInverted(true);
     leftSpinnerMotor.setInverted(true);
     targetVelocity = velocity;
+    System.out.println(targetVelocity);
     leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
     rightPIDController.setReference(targetVelocity, ControlType.kVelocity);
   }
@@ -84,6 +85,7 @@ public class SpiralSpinner extends SubsystemBase {
     rightSpinnerMotor.setInverted(false);
     leftSpinnerMotor.setInverted(false);
     targetVelocity = velocity;
+    System.out.println(targetVelocity);
     leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
     rightPIDController.setReference(targetVelocity, ControlType.kVelocity);
   }

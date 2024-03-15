@@ -97,7 +97,7 @@ public final class Constants {
   //Launcher Constants
   public static final class LauncherConstants {
     public static final int targetSpeakerRPM = 1500;
-    public static final int targetAmpRPM = 450;
+    public static final int targetAmpRPM = 375;
     public static final int leftLaunchMotor = 10;
     public static final int rightLaunchMotor = 11;
     public static final double proportialPIDConstant = 0.0006;
