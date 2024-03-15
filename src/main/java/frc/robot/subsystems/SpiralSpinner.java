@@ -30,8 +30,10 @@ public class SpiralSpinner extends SubsystemBase {
   private double targetVelocity = 0; 
   private int rollingAvg = 0;
   private int desiredRPM;
-  private DigitalInput toplimitSwitch = new DigitalInput(0);
-  private DigitalInput bottomlimitSwitch = new DigitalInput(1);  
+  private DigitalInput topLeftLimitSwitch = new DigitalInput(0);
+  private DigitalInput bottomLeftLimitSwitch = new DigitalInput(1);
+  private DigitalInput topRightLimitSwitch = new DigitalInput(2);
+  private DigitalInput bottomRightLimitSwitch = new DigitalInput(3);
 
   public SpiralSpinner() {
     leftSpinnerMotor = new CANSparkMax(Constants.SpiralSpinnerConstants.leftSpinnerMotor, MotorType.kBrushless);
@@ -67,27 +69,41 @@ public class SpiralSpinner extends SubsystemBase {
   }  
 
   public void setVelocity(double velocity) {
-    if (toplimitSwitch.get()){
-      velocity = 0;
-    }
     rightSpinnerMotor.setInverted(true);
     leftSpinnerMotor.setInverted(true);
     targetVelocity = velocity;
-    System.out.println(targetVelocity);
-    leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
-    rightPIDController.setReference(targetVelocity, ControlType.kVelocity);
+    if (topRightLimitSwitch.get()){
+      rightPIDController.setReference(0, ControlType.kVelocity);
+    }
+    else {
+      rightPIDController.setReference(targetVelocity, ControlType.kVelocity);
+    }
+
+    if (topLeftLimitSwitch.get()){
+      leftPIDController.setReference(0, ControlType.kVelocity);
+    }
+    else {
+      leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
+    }
   }
 
   public void setReverseVelocity(double velocity){
-    if (bottomlimitSwitch.get()){
-      velocity = 0;
-    }
     rightSpinnerMotor.setInverted(false);
     leftSpinnerMotor.setInverted(false);
     targetVelocity = velocity;
-    System.out.println(targetVelocity);
-    leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
-    rightPIDController.setReference(targetVelocity, ControlType.kVelocity);
+    if (bottomRightLimitSwitch.get()){
+      rightPIDController.setReference(0, ControlType.kVelocity);
+    }
+    else {
+      rightPIDController.setReference(targetVelocity, ControlType.kVelocity);
+    }
+
+    if (bottomLeftLimitSwitch.get()){
+      leftPIDController.setReference(0, ControlType.kVelocity);
+    }
+    else {
+      leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
+    }
   }
 
   public void setSpeed(double speed) {

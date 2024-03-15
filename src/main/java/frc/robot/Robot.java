@@ -234,8 +234,8 @@ public class Robot extends TimedRobot {
     autoScheduler.addAction(new WaitAction(secondsToWait));
     autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
     autoScheduler.addAction(new FlipAction(1, flipper, 2));
-    autoScheduler.addAction(new DriveAndSuckAction(0.7, m_tankdrive, sucker));
-    autoScheduler.addAction(new SuckAction(1, sucker));
+    autoScheduler.addAction(new DriveAndSuckAction(1.5, m_tankdrive, sucker));
+    autoScheduler.addAction(new SuckAction(2.5, sucker));
     autoScheduler.addAction(new BeltAction(4, belt));
     autoScheduler.addAction(new SolenoidAction(1, solenoid));
     autoScheduler.addAction(new DriveReverseAction(1.7, m_tankdrive, Constants.AutoReverseRate));

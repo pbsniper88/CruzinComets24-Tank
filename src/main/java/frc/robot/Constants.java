@@ -87,7 +87,7 @@ public final class Constants {
   public static final double AutoStallRate = 0.0;
   public static final double AutoDriveRate = 0.5;
   public static final double AutoReverseRate = -0.5;
-  public static final double AutoDriveRateFast = 1;
+  public static final double AutoDriveRateFast = 0.6;
   public static final double WheelDiameter = 0.5; // Feet
   public static final double Pi = 3.14159265358979; // 15 digits
   public static final double ShooterSpinTimeTillServoPush = 3.5;
@@ -98,7 +98,7 @@ public final class Constants {
   //Launcher Constants
   public static final class LauncherConstants {
     public static final int targetSpeakerRPM = 1500;
-    public static final int targetAmpRPM = 375;
+    public static final int targetAmpRPM = 357;
     public static final int leftLaunchMotor = 10;
     public static final int rightLaunchMotor = 11;
     public static final double proportialPIDConstant = 0.0006;
