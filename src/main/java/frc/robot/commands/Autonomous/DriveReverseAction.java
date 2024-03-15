@@ -9,11 +9,19 @@ public class DriveReverseAction implements Action {
     private long startTime;
     //Variable that accesses our TankDrive subsystem
     private TankDrive tankDrive;
+    private double speed;
 
     //Constructer is called within Robot class, which contains the an instance of TankDrive    
+    public DriveReverseAction(double duration, TankDrive tankDrive, double speed) {
+        this.duration = duration;
+        this.tankDrive = tankDrive;
+        this.speed = speed;
+    }
+
     public DriveReverseAction(double duration, TankDrive tankDrive) {
         this.duration = duration;
         this.tankDrive = tankDrive;
+        this.speed = Constants.AutoReverseRate;
     }
 
     @Override
@@ -21,7 +29,7 @@ public class DriveReverseAction implements Action {
         startTime = System.currentTimeMillis();
         // Code to start driving forward
         //Speed for autonDrive is within Constants class        
-        tankDrive.autonDrive(Constants.AutoReverseRate, Constants.AutoReverseRate);
+        tankDrive.autonDrive(speed, speed);
     }
 
     @Override
