@@ -25,7 +25,7 @@ public class DriveAndSuckAction implements Action {
         // Code to start driving forward
         //Speed for autonDrive is within Constants class
         tankDrive.autonDrive(Constants.AutoDriveRateFast, Constants.AutoDriveRateFast);
-        sucker.setSpeed(Constants.suckerSuckSpeed);
+        sucker.setSpeed(Constants.suckerSuckSpeed * -1);
     }
 
     @Override

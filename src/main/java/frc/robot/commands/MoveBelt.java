@@ -7,16 +7,24 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class MoveBelt extends Command{
     private final Belt m_belt;
     public boolean isOn;
+    public boolean isForward;
 
-    public MoveBelt(Belt subsystem, boolean on){
+    public MoveBelt(Belt subsystem, boolean on, boolean forward){
         m_belt = subsystem;
         isOn = on;
+        isForward = forward;
         addRequirements(subsystem);
     }
     @Override
     public void initialize() {
         if(isOn){
-            m_belt.setSpeed(Constants.beltMoveSpeed * -1);
+            if (isForward){
+                m_belt.setSpeed(Constants.beltMoveSpeed * -1);
+            }
+
+            else {
+                m_belt.setSpeed(Constants.beltMoveSpeed);
+            }
         }
 
         else{

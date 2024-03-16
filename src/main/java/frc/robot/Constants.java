@@ -87,7 +87,7 @@ public final class Constants {
   public static final double AutoStallRate = 0.0;
   public static final double AutoDriveRate = 0.5;
   public static final double AutoReverseRate = -0.5;
-  public static final double AutoDriveRateFast = 0.6;
+  public static final double AutoDriveRateFast = 0.8;
   public static final double AutoDriveDurationInitial = 0.2;
   public static final double WheelDiameter = 0.5; // Feet
   public static final double Pi = 3.14159265358979; // 15 digits

@@ -1,26 +1,31 @@
 package frc.robot.commands.Autonomous;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
-import frc.robot.subsystems.Sucker;
+import frc.robot.subsystems.*;
 
-public class SuckAction implements Action{
+public class BeltAndSolenoidAction implements Action{
     //Determines how long to drive forward
     private double duration;
     //Keeps track of when this action started
     private long startTime;
     //Variable that accesses our TankDrive subsystem
-    private Sucker sucker;
+    private Belt belt;
+    private Solenoid solenoid;
 
-    public SuckAction(double duration, Sucker subsystem){
+    public BeltAndSolenoidAction(double duration, Belt subsystem, Solenoid subsystem2){
         this.duration = duration;
-        sucker = subsystem;
+        belt = subsystem;
+        solenoid = subsystem2;
     }
 
 
     @Override
     public void start() {
         startTime = System.currentTimeMillis();
-        sucker.setSpeed(Constants.suckerSuckSpeed * -1);
+        belt.setSpeed(Constants.beltMoveSpeed * -1);
+        Timer.delay(0.5);
+        solenoid.setForward();
     }
 
     @Override
@@ -29,7 +34,8 @@ public class SuckAction implements Action{
 
     @Override
     public void end() {
-        sucker.setSpeed(0);
+        belt.setSpeed(0);
+        solenoid.stopMotor();
     }
 
     @Override

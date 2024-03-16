@@ -203,12 +203,12 @@ public class Robot extends TimedRobot {
     autoScheduler.init();
     }
 
+    //Source side (hella space), position such that you will shoot upon starting, no Inital Drive.
     else if (autonStyle == 4){
     autoScheduler.addAction(new WaitAction(secondsToWait));
-    autoScheduler.addAction(new DriveForwardAction(Constants.AutoDriveDurationInitial, m_tankdrive, Constants.AutoDriveRate));
     autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
     autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
-    autoScheduler.addAction(new DriveForwardAction(1.3, m_tankdrive, Constants.AutoDriveRate));
+    autoScheduler.addAction(new DriveForwardAction(1.5, m_tankdrive, Constants.AutoDriveRate));
     autoScheduler.init();
     }
 
@@ -239,12 +239,13 @@ public class Robot extends TimedRobot {
     autoScheduler.addAction(new DriveForwardAction(Constants.AutoDriveDurationInitial, m_tankdrive, Constants.AutoDriveRate));
     autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
     autoScheduler.addAction(new FlipAction(1, flipper, 2));
-    autoScheduler.addAction(new DriveAndSuckAction(1.5, m_tankdrive, sucker));
-    autoScheduler.addAction(new SuckAction(2.5, sucker));
-    autoScheduler.addAction(new BeltAction(4, belt));
+    autoScheduler.addAction(new DriveAndSuckAction(0.7, m_tankdrive, sucker)); //too long hits stage
+    autoScheduler.addAction(new SuckAction(1, sucker));
+    autoScheduler.addAction(new BeltAction(2, belt));
+    autoScheduler.addAction(new BeltAndSolenoidAction(2, belt, solenoid));
     autoScheduler.addAction(new SolenoidAction(0.5, solenoid));
     autoScheduler.addAction(new SolenoidAction(0.5, solenoid));
-    autoScheduler.addAction(new DriveReverseAction(1.5, m_tankdrive, Constants.AutoReverseRate));
+    autoScheduler.addAction(new DriveReverseAction(2.5, m_tankdrive, Constants.AutoReverseRate));
     autoScheduler.addAction(new DriveForwardAction(0.2, m_tankdrive, Constants.AutoDriveRate));
     autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
     autoScheduler.init();
@@ -336,8 +337,12 @@ public class Robot extends TimedRobot {
     suckButton.onFalse(new Suck(sucker, false));
 
     JoystickButton beltButton = new JoystickButton(Constants.auxController, Button.kA.value);
-    beltButton.whileTrue(new MoveBelt(belt, true));
-    beltButton.onFalse(new MoveBelt(belt, false));
+    beltButton.whileTrue(new MoveBelt(belt, true, true));
+    beltButton.onFalse(new MoveBelt(belt, false, true));
+
+    JoystickButton reverseBeltButton = new JoystickButton(Constants.auxController, Button.kRightStick.value);
+    reverseBeltButton.whileTrue(new MoveBelt(belt, true, false));
+    reverseBeltButton.onFalse(new MoveBelt(belt, false, false));
 
     // JoystickButton servoButton = new JoystickButton(Constants.auxController, Button.kRightBumper.value);
     // servoButton.whileTrue(new MoveServo(servo, true));
@@ -356,8 +361,8 @@ public class Robot extends TimedRobot {
     loosenFlipperButton.whileTrue(new Flip(flipper, 2));
     loosenFlipperButton.onFalse(new Flip(flipper, 1));
 
-    JoystickButton activateFlipperPassivePowerButton = new JoystickButton(Constants.auxController, Button.kRightStick.value);
-    activateFlipperPassivePowerButton.onTrue(new Flip(flipper, 3));
+    // JoystickButton activateFlipperPassivePowerButton = new JoystickButton(Constants.auxController, Button.kRightStick.value);
+    // activateFlipperPassivePowerButton.onTrue(new Flip(flipper, 3));
 
     JoystickButton spinSpiralButton = new JoystickButton(controllerOne, Button.kY.value);
     spinSpiralButton.whileTrue(new SetSpiralSpinnerVelocity(spinner, Constants.SpiralSpinnerConstants.spiralSpinnerVelocty));

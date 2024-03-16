@@ -20,7 +20,7 @@ public class BeltAction implements Action{
     @Override
     public void start() {
         startTime = System.currentTimeMillis();
-        belt.setSpeed(Constants.beltMoveSpeed);
+        belt.setSpeed(Constants.beltMoveSpeed * -1);
     }
 
     @Override
