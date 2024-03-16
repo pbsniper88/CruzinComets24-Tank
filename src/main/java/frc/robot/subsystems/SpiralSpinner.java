@@ -63,6 +63,10 @@ public class SpiralSpinner extends SubsystemBase {
     rightPIDController.setOutputRange(SpiralSpinnerConstants.minPIDOutput, SpiralSpinnerConstants.maxPIDOutput);
     stop();
     SmartDashboard.putNumber("Desired Spinner RPM", 0);
+    // SmartDashboard.putNumber("Spinner P", 0);
+    // SmartDashboard.putNumber("Spinner I", 0);
+    // SmartDashboard.putNumber("Spinner D", 0);
+
 
     leftSpinnerMotor.burnFlash();
     rightSpinnerMotor.burnFlash();
@@ -104,6 +108,15 @@ public class SpiralSpinner extends SubsystemBase {
     else {
       leftPIDController.setReference(targetVelocity, ControlType.kVelocity);
     }
+  }
+
+  public void setPID(double P, double I, double D){
+    leftPIDController.setP(P);
+    leftPIDController.setI(I);
+    leftPIDController.setD(D);
+    rightPIDController.setP(P);
+    rightPIDController.setI(I);
+    rightPIDController.setD(D);
   }
 
   public void setSpeed(double speed) {

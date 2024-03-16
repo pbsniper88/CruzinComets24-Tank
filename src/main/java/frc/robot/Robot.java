@@ -262,11 +262,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-
+    // double spinnerP = (double) SmartDashboard.getNumber("Spinner P", 0);
+    // double spinnerI = (double) SmartDashboard.getNumber("Spinner I", 0);
+    // double spinnerD = (double) SmartDashboard.getNumber("Spinner D", 0);
+    // spinner.setPID(spinnerP, spinnerI, spinnerD);
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    
   }
 
   /** This function is called periodically during operator control. */
