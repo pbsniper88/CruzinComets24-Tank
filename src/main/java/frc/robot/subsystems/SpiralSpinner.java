@@ -67,7 +67,6 @@ public class SpiralSpinner extends SubsystemBase {
     // SmartDashboard.putNumber("Spinner I", 0);
     // SmartDashboard.putNumber("Spinner D", 0);
 
-
     leftSpinnerMotor.burnFlash();
     rightSpinnerMotor.burnFlash();
   }  
