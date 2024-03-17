@@ -43,7 +43,7 @@ public class FlipAction implements Action{
     @Override
     public void end() {
         if (state == 1 || state == 2){
-            flipper.setSpeed(0);    
+            flipper.setSpeed(Constants.flipperStaySpeed);    
         }
 }
 

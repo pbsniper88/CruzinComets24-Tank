@@ -218,7 +218,7 @@ public class Robot extends TimedRobot {
     autoScheduler.addAction(new DriveForwardAction(Constants.AutoDriveDurationInitial, m_tankdrive, Constants.AutoDriveRate));
     autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
     autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
-    autoScheduler.addAction(new TurnAction(0.3, false, m_tankdrive));
+    autoScheduler.addAction(new TurnAction(0.5, false, m_tankdrive));
     autoScheduler.addAction(new DriveForwardAction(0.8, m_tankdrive, Constants.AutoDriveRate));
     autoScheduler.init();
     }
@@ -229,7 +229,7 @@ public class Robot extends TimedRobot {
     autoScheduler.addAction(new DriveForwardAction(Constants.AutoDriveDurationInitial, m_tankdrive, Constants.AutoDriveRate));
     autoScheduler.addAction(new FlipAction(0.1, flipper, 3));
     autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
-    autoScheduler.addAction(new TurnAction(0.3, true, m_tankdrive));
+    autoScheduler.addAction(new TurnAction(0.5, true, m_tankdrive));
     autoScheduler.addAction(new DriveForwardAction(0.8, m_tankdrive, Constants.AutoDriveRate));
     autoScheduler.init();
     }
@@ -239,14 +239,15 @@ public class Robot extends TimedRobot {
     autoScheduler.addAction(new DriveForwardAction(Constants.AutoDriveDurationInitial, m_tankdrive, Constants.AutoDriveRate));
     autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
     autoScheduler.addAction(new FlipAction(1, flipper, 2));
-    autoScheduler.addAction(new DriveAndSuckAction(0.7, m_tankdrive, sucker)); //too long hits stage
-    autoScheduler.addAction(new SuckAction(1, sucker));
-    autoScheduler.addAction(new BeltAction(2, belt));
-    autoScheduler.addAction(new BeltAndSolenoidAction(2, belt, solenoid));
-    autoScheduler.addAction(new SolenoidAction(0.5, solenoid));
-    autoScheduler.addAction(new SolenoidAction(0.5, solenoid));
-    autoScheduler.addAction(new DriveReverseAction(2.5, m_tankdrive, Constants.AutoReverseRate));
+    autoScheduler.addAction(new DriveAndSuckAction(0.8, m_tankdrive, sucker)); //too long hits stage
+    autoScheduler.addAction(new SuckAction(0.5, sucker));
+    autoScheduler.addAction(new FlipAction(1.5, flipper, 1));
+    autoScheduler.addAction(new DriveReverseAction(2.6, m_tankdrive, Constants.AutoReverseRate));
     autoScheduler.addAction(new DriveForwardAction(0.2, m_tankdrive, Constants.AutoDriveRate));
+    autoScheduler.addAction(new BeltAction(1, belt));
+    autoScheduler.addAction(new BeltAndSolenoidAction(1, belt, solenoid));
+    autoScheduler.addAction(new SolenoidAction(0.3, solenoid));
+    autoScheduler.addAction(new SolenoidAction(0.3, solenoid));
     autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
     autoScheduler.init();
     }
@@ -257,6 +258,43 @@ public class Robot extends TimedRobot {
       autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
       autoScheduler.addAction(new DriveReverseAction(0.4, m_tankdrive, Constants.AutoReverseRate));
       //Teleop Code messing with auton
+      autoScheduler.init();
+    }
+    //Playoff RED TEAM CENTER
+    else if (autonStyle == 9){
+      autoScheduler.addAction(new WaitAction(secondsToWait));
+      autoScheduler.addAction(new DriveForwardAction(Constants.AutoDriveDurationInitial, m_tankdrive, Constants.AutoDriveRate));
+      autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
+      autoScheduler.addAction(new WaitAction(0.2));
+      autoScheduler.addAction(new DriveReverseAction(0.4, m_tankdrive, Constants.AutoReverseRate));
+      autoScheduler.addAction(new WaitAction(10));
+      autoScheduler.addAction(new DriveCustomAction(0.25, m_tankdrive, 0.5, -0.5));
+      autoScheduler.addAction(new DriveCustomAction(2, m_tankdrive, 0.4, 0.5));
+      autoScheduler.addAction(new DriveForwardAction(1, m_tankdrive, Constants.AutoDriveRate));
+      autoScheduler.init();
+    }
+
+        //Playoff BLUE TEAM CENTER
+    else if (autonStyle == 10){
+      autoScheduler.addAction(new WaitAction(secondsToWait));
+      autoScheduler.addAction(new DriveForwardAction(Constants.AutoDriveDurationInitial, m_tankdrive, Constants.AutoDriveRate));
+      autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
+      autoScheduler.addAction(new WaitAction(0.2));
+      autoScheduler.addAction(new DriveReverseAction(0.4, m_tankdrive, Constants.AutoReverseRate));
+      autoScheduler.addAction(new WaitAction(9));
+      autoScheduler.addAction(new DriveCustomAction(0.25, m_tankdrive, -0.5, 0.5));
+      autoScheduler.addAction(new DriveCustomAction(2, m_tankdrive, 0.5, 0.4));
+      autoScheduler.addAction(new DriveForwardAction(1, m_tankdrive, Constants.AutoDriveRate));
+      autoScheduler.init();
+    }
+
+    //Just shoot and back in
+    else if (autonStyle == 11){
+      autoScheduler.addAction(new WaitAction(secondsToWait));
+      autoScheduler.addAction(new DriveForwardAction(Constants.AutoDriveDurationInitial, m_tankdrive, Constants.AutoDriveRate));
+      autoScheduler.addAction(new LauncherWithSoleAction(launcher, solenoid, Constants.speakerShot));
+      autoScheduler.addAction(new WaitAction(0.2));
+      autoScheduler.addAction(new DriveReverseAction(0.4, m_tankdrive, Constants.AutoReverseRate));
       autoScheduler.init();
     }
 
